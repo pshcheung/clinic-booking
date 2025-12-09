@@ -11,15 +11,16 @@ export class HeaderComponent implements OnInit {
   loggedUser = '';
   currRole = '';
   title = '';
+  active = 1;
 
   constructor(private activatedRoute: ActivatedRoute, private _router : Router) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
     this.loggedUser = this.loggedUser.replace(/"/g, '');
 
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
+    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}');
     this.currRole = this.currRole.replace(/"/g, '');
 
     if(this.loggedUser === "admin@gmail.com"){

@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -17,7 +17,6 @@ import { AddingdoctorComponent } from './components/addingdoctor/addingdoctor.co
 import { DoctorlistComponent } from './components/doctorlist/doctorlist.component';
 import { UserlistComponent } from './components/userlist/userlist.component';
 import { AppointmentsComponent } from './components/appointments/appointments.component';
-import { MDBBootstrapModule } from 'angular-bootstrap-md';
 import { UserprofileComponent } from './components/userprofile/userprofile.component';
 import { DoctorprofileComponent } from './components/doctorprofile/doctorprofile.component';
 import { PatientlistComponent } from './components/patientlist/patientlist.component';
@@ -30,6 +29,7 @@ import { AddprescriptionComponent } from './components/addprescription/addprescr
 import { PrescriptionlistComponent } from './components/prescriptionlist/prescriptionlist.component';
 import { WelcomepageComponent } from './components/welcomepage/welcomepage.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
 @NgModule({
   declarations: [
@@ -64,7 +64,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
     FormsModule,
     HttpClientModule,
     NgxPaginationModule,
-    MDBBootstrapModule.forRoot()
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent, RegistrationComponent]
