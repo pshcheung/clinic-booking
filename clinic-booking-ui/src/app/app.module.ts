@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -31,42 +31,35 @@ import { WelcomepageComponent } from './components/welcomepage/welcomepage.compo
 import { NgxPaginationModule } from 'ngx-pagination';
 import {NgbModule} from "@ng-bootstrap/ng-bootstrap";
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegistrationComponent,
-    RegistrationsuccessComponent,
-    UserdashboardComponent,
-    AdmindashboardComponent,
-    DoctordashboardComponent,
-    FooterComponent,
-    HeaderComponent,
-    AddingdoctorComponent,
-    DoctorlistComponent,
-    UserlistComponent,
-    AppointmentsComponent,
-    UserprofileComponent,
-    DoctorprofileComponent,
-    PatientlistComponent,
-    ApprovedoctorsComponent,
-    BookappointmentComponent,
-    ScheduleslotsComponent,
-    ApprovalstatusComponent,
-    CheckslotsComponent,
-    AddprescriptionComponent,
-    PrescriptionlistComponent,
-    WelcomepageComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    FormsModule,
-    HttpClientModule,
-    NgxPaginationModule,
-    NgbModule
-  ],
-  providers: [],
-  bootstrap: [AppComponent, RegistrationComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        LoginComponent,
+        RegistrationComponent,
+        RegistrationsuccessComponent,
+        UserdashboardComponent,
+        AdmindashboardComponent,
+        DoctordashboardComponent,
+        FooterComponent,
+        HeaderComponent,
+        AddingdoctorComponent,
+        DoctorlistComponent,
+        UserlistComponent,
+        AppointmentsComponent,
+        UserprofileComponent,
+        DoctorprofileComponent,
+        PatientlistComponent,
+        ApprovedoctorsComponent,
+        BookappointmentComponent,
+        ScheduleslotsComponent,
+        ApprovalstatusComponent,
+        CheckslotsComponent,
+        AddprescriptionComponent,
+        PrescriptionlistComponent,
+        WelcomepageComponent
+    ],
+    bootstrap: [AppComponent, RegistrationComponent], imports: [BrowserModule,
+        AppRoutingModule,
+        FormsModule,
+        NgxPaginationModule,
+        NgbModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class AppModule { }
