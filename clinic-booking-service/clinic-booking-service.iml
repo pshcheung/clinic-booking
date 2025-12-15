@@ -6,8 +6,8 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="entityManagerFactory" />
           <factory-entry name="clinic-booking-service" value="9e1fa2f4-60b5-464b-876f-bd678ff7386f" />
+          <factory-entry name="entityManagerFactory" />
         </datasource-mapping>
         <naming-strategy-map />
       </configuration>

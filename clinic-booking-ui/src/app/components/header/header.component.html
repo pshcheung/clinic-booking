@@ -31,7 +31,7 @@
   <a class="navbar-brand" href="#">{{title}}</a>
   <ul ngbNav #nav="ngbNav" [(activeId)]="active" class="nav-tabs">
     <li [ngbNavItem]="1">
-      <button ngbNavLink>Home</button>
+      <a class="nav-link waves-light" (click)="navigateHome()">Home</a>
       <ng-template ngbNavContent>
         <!--      <p>-->
         <!--        Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth-->

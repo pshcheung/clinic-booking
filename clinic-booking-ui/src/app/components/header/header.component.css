@@ -1,4 +1,4 @@
- 
+
   .sidebar-logo {
     padding: 10px 15px 10px 30px;
     font-size: 20px;
@@ -8,11 +8,11 @@
   }
   ::ng-deep .navCss nav
   {
-    background-color: #0d0a35; 
+    background-color: #0d0a35;
     color: white;
     font-weight: 600;
   }
-  #nav-link:hover{
+  .nav-link:hover{
     cursor: pointer;
     background-color: #23ad9b;
     padding: 5px 8px 5px 8px;

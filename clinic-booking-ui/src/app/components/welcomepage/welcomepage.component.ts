@@ -1,22 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
-  selector: 'app-welcomepage',
-  templateUrl: './welcomepage.component.html',
-  styleUrls: ['./welcomepage.component.css']
+  selector: 'app-welcomepage', templateUrl: './welcomepage.component.html', styleUrls: ['./welcomepage.component.css']
 })
 export class WelcomepageComponent implements OnInit {
-
-  constructor(private activatedRoute: ActivatedRoute,private _router : Router) { }
-
-  ngOnInit(): void 
-  {
-    
+  constructor(private activatedRoute: ActivatedRoute, private _router: Router) {
   }
 
-  navigate()
-  {
+  ngOnInit(): void {
+
+  }
+
+  navigate() {
     this._router.navigate(['/login']);
   }
 }

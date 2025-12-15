@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -9,7 +10,6 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./doctordashboard.component.css']
 })
 export class DoctordashboardComponent implements OnInit {
-
   name = '';
   gender = '';
   loggedUser = '';
@@ -19,10 +19,11 @@ export class DoctordashboardComponent implements OnInit {
   doctors : Observable<any[]> | undefined;
   slots : Observable<any[]> | undefined;
   prescriptions : Observable<any[]> | undefined;
-  
+  menuOpened: boolean = false;
+
   constructor(private _route : Router, private _service : UserService) { }
 
-  ngOnInit(): void 
+  ngOnInit(): void
   {
     this.name = JSON.stringify(sessionStorage.getItem("ROLE")|| '{}');
     this.name = this.name.replace(/"/g, '');
@@ -33,7 +34,7 @@ export class DoctordashboardComponent implements OnInit {
     this.loggedUser = JSON.stringify(sessionStorage.getItem('loggedUser')|| '{}');
     this.loggedUser = this.loggedUser.replace(/"/g, '');
 
-    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}'); 
+    this.currRole = JSON.stringify(sessionStorage.getItem('ROLE')|| '{}');
     this.currRole = this.currRole.replace(/"/g, '');
 
     this.patients = this._service.getTotalPatients();
@@ -41,12 +42,9 @@ export class DoctordashboardComponent implements OnInit {
     this.doctors = this._service.getTotalDoctors();
     this.slots = this._service.getTotalSlots();
     this.prescriptions = this._service.getTotalPrescriptions();
-    
-    $('.menuToggle').on('click',function(){
-      $(this).toggleClass('menuToggle_open');
-      $(".menu").toggleClass('hideMenu');
-    
-    });
   }
 
+  handleMenuToggled() {
+    this.menuOpened = !this.menuOpened;
+  }
 }
