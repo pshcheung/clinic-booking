@@ -6,7 +6,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "HealthCareManagement": {
+    "ClinicBooking": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:application": {
@@ -21,7 +21,7 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "outputPath": {
-              "base": "dist/HealthCareManagement"
+              "base": "dist/ClinicBooking"
             },
             "index": "src/index.html",
             "polyfills": [
@@ -78,10 +78,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "HealthCareManagement:build:production"
+              "buildTarget": "ClinicBooking:build:production"
             },
             "development": {
-              "buildTarget": "HealthCareManagement:build:development"
+              "buildTarget": "ClinicBooking:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -89,7 +89,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "HealthCareManagement:build"
+            "buildTarget": "ClinicBooking:build"
           }
         },
         "test": {
