@@ -1,0 +1,32 @@
+{
+	"header": {
+		"title": "Clinic Booking",
+    "menu": {
+      "login-item": "Login",
+      "logout-item":  "Logout"
+    }
+	},
+  "admin": {
+    "dashboard": {
+      "title": "Admin Dashboard"
+    }
+  },
+  "manager": {
+    "dashboard": {
+      "title": "Manager Dashboard"
+    }
+  },
+  "therapist": {
+    "dashboard": {
+      "title": "Therapist Dashboard"
+    },
+    "add-timeslot": {
+      "title": "Add Time-slots"
+    }
+  },
+  "client": {
+    "dashboard": {
+      "title": "Client Dashboard"
+    }
+  }
+}

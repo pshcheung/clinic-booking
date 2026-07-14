@@ -1,0 +1,7 @@
+export enum ServiceType {
+  BUCCAL_MASSAGE = 0,
+  LYMPHATIC_DRAINAGE = 1,
+  SPORTS_MASSAGE = 2,
+  SPECIAL_MASSAGE = 3,
+  THAI_MASSAGE = 4,
+}

@@ -1,0 +1,31 @@
+<p>{{title() | translate }} works!</p>
+
+<!--@if ((books$ | async)?.length) {
+  <p class="no-books">No books found. Did you start the <code>example-server</code> project?</p>
+} @else {
+  <ul class="book-list">
+    @for (book of (books$ | async); track book.id) {
+      <li class="book-item">
+        <strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.year }})
+      </li>
+    }
+  </ul>
+}-->
+
+@if (books$ | async; as books) {
+  @if (books.length > 0) {
+    <ul class="book-list">
+      @for (book of (books); track book.id) {
+        <li class="book-item">
+          <strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.year }})
+        </li>
+      }
+    </ul>
+  } @else {
+    <!-- Optional: Content to display if the array is empty -->
+    <p>No books found.</p>
+  }
+} @else {
+  <!-- Optional: Content to display while the observable is null (loading/error) -->
+  <p>Loading books...</p>
+}

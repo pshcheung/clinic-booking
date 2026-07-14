@@ -1,0 +1,74 @@
+.sidebar {
+  width: 260px;
+  background: #ffffff;
+  border-right: 1px solid #e2e8f0;
+  padding: 1.5rem;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+
+  .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
+  nav {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .nav-item {
+    border: none;
+    background: transparent;
+    padding: 0.85rem 1rem;
+    border-radius: 14px;
+    text-align: left;
+    cursor: pointer;
+    color: #475569;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f1f5f9;
+    }
+
+    &.active {
+      background: #0f172a;
+      color: white;
+    }
+  }
+}
+/* Flexible Content Pane styling */
+.page-content {
+  flex: 1;            /* Forces content pane to take up all remaining space */
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.my-custom-button {
+  border: none;
+  background: transparent;
+  padding: 0.85rem 1rem;
+  border-radius: 14px;
+  text-align: left;
+  cursor: pointer;
+  color: #475569;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+}
+
+.my-custom-button:hover {
+  background: #f1f5f9;
+}
+
+.my-custom-button-active {
+  background: #0f172a;
+  color: white;
+}
+
+.active-class {
+  color: #007bff;
+  font-weight: bold;
+}

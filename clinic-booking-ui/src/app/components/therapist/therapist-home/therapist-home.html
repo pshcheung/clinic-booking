@@ -1,0 +1,130 @@
+<header class="header">
+  <h2>Dashboard</h2>
+  <p>Overview of business activity and operations</p>
+</header>
+
+<main class="main-content">
+  <section class="stats-grid">
+<!--    <div class="card" *ngFor="let stat of stats">
+      <p>{{ stat.label }}</p>
+      <h3>{{ stat.value }}</h3>
+      <p>{{ stat.change }}</p>
+    </div>-->
+  </section>
+<!--
+  <section class="content-grid">
+    <div class="table-card">
+      <h3>Recent Appointments</h3>
+
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let order of recentOrders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.service }}</td>
+          <td>
+            <span class="status-pill">{{ order.status }}</span>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-card">
+      <h3>Quick Actions</h3>
+
+      <div class="quick-actions">
+        <button *ngFor="let action of quickActions">
+          {{ action }}
+        </button>
+      </div>
+    </div>
+  </section>-->
+
+  <section class="content-grid">
+    <div class="table-card">
+      <h3>Recent Timeslots</h3>
+
+      <table>
+        <thead>
+        <tr>
+          <th>Service to provide</th>
+          <th>Start Date/Time</th>
+          <th>End Date/Time</th>
+          <th>Type</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+          @for (timeSlot of timeslotStore.computedTimeslots(); track timeSlot.type) {
+            <tr>
+              <td>{{ timeSlot.servicesToProvide }}</td>
+              <td>{{ timeSlot.startDateTime | date:'yyyy-MM-dd HH:mm a'  }}</td>
+              <td>{{ timeSlot.endDateTime  | date:'yyyy-MM-dd HH:mm a' }}</td>
+              <td>
+                <span class="status-pill">{{ timeSlot.status }}</span>
+              </td>
+            </tr>
+          } @empty {
+            No timeslot found
+          }
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-card">
+      <h3>Quick Actions</h3>
+
+      <div class="quick-actions">
+<!--        <button *ngFor="let action of quickActions">
+          {{ action }}
+        </button>-->
+      </div>
+    </div>
+  </section>
+
+  <section class="content-grid">
+    <div class="table-card">
+      <h3>Recent Appointments</h3>
+
+      <table>
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Client</th>
+          <th>Service</th>
+          <th>Status</th>
+        </tr>
+        </thead>
+        <tbody>
+<!--        <tr *ngFor="let order of recentOrders">
+          <td>{{ order.id }}</td>
+          <td>{{ order.customer }}</td>
+          <td>{{ order.service }}</td>
+          <td>
+            <span class="status-pill">{{ order.status }}</span>
+          </td>
+        </tr>-->
+        </tbody>
+      </table>
+    </div>
+
+    <div class="table-card">
+      <h3>Quick Actions</h3>
+
+      <div class="quick-actions">
+<!--        <button *ngFor="let action of quickActions">
+          {{ action }}
+        </button>-->
+      </div>
+    </div>
+  </section>
+</main>

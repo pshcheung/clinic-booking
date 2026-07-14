@@ -1,0 +1,18 @@
+<header>
+  <nav>
+    <h1>{{'header.title' | translate}}</h1>
+    <!-- Add navigation links here using routerLink -->
+    <div class="actions">
+      <a routerLink="/" class="action-item">Home</a>
+      <a routerLink="/admin" class="action-item" *kaHasRoles="['clinic_admin_role']; resource:'clinic-one-client' checkRealm:true">{{'admin.dashboard.title' | translate}}</a>
+      <a routerLink="/manager" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role']; resource:'clinic-one-client' checkRealm:true">{{'manager.dashboard.title' | translate}}</a>
+      <a routerLink="/therapist" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role']; resource:'clinic-one-client' checkRealm:true">{{'therapist.dashboard.title' | translate}}</a>
+      <a routerLink="/client" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role', 'clinic_client_role']; resource:'clinic-one-client' checkRealm:true">{{'client.dashboard.title' | translate}}</a>
+      @if (!authenticated) {
+        <button class="action-item" (click)="login()">{{'header.menu.login-item' | translate}}</button>
+      } @else {
+        <button class="action-item" (click)="logout()">{{'header.menu.logout-item' | translate}}</button>
+      }
+    </div>
+  </nav>
+</header>
