@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   mysql:
     image: mysql:latest
@@ -21,7 +19,7 @@ services:
       - keycloak-and-mysql-network
 
   keycloak:
-    image: jboss/keycloak:16.1.1
+    image: keycloak/keycloak:26.4
     ports:
       - 8080:8080
     restart: unless-stopped

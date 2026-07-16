@@ -39,7 +39,7 @@ public class LoginController
 	@GetMapping("/")
     public String welcomeMessage()
     {
-    	return "Welcome to HealthCare Management system !!!";
+    	return "Welcome to Clinic Booking application !!!";
     }
     
     @PostMapping("/authenticate")

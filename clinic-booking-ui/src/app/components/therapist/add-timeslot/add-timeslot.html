@@ -1,0 +1,96 @@
+
+<!--<div class="page-layout">-->
+<!--  <left-nav></left-nav>-->
+<!--  <main class="page-content">-->
+<!--    <form (submit)="onSubmit()">-->
+<!--      <div>-->
+<!--        <label for="startDateTime">Start Date and Time:</label>-->
+<!--        <ngxsmk-datepicker-->
+<!--          id="startDateTime"-->
+<!--          [field]="appointmentForm.startDateTime"-->
+<!--          mode="single"-->
+<!--          [showTime]=true-->
+<!--          [minuteInterval]="15"-->
+<!--          placeholder="Select Start and End Date/Time">-->
+<!--        </ngxsmk-datepicker>-->
+<!--      </div>-->
+<!--      <div>-->
+<!--        <label for="endDateTime">End Date and Time:</label>-->
+<!--        <ngxsmk-datepicker-->
+<!--          id="endDateTime"-->
+<!--          [field]="appointmentForm.endDateTime"-->
+<!--          mode="single"-->
+<!--          [showTime]=true-->
+<!--          [minuteInterval]="15"-->
+<!--          placeholder="Select Start and End Date/Time">-->
+<!--        </ngxsmk-datepicker>-->
+<!--        <p>Start date/time: {{ availableTImeSlot().startDateTime | date:'medium' }}</p>-->
+<!--        <p>End date/time: {{ availableTImeSlot().endDateTime | date:'medium' }}</p>-->
+<!--        <button type="submit">Submit</button>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </main>-->
+<!--</div>-->
+
+
+<header class="header">
+  <h2>{{title() | translate }}</h2>
+</header>
+
+<main class="main-content">
+  <section class="content-grid">
+    <div class="table-card">
+      <h3>Proposing available timeslots for appoval.</h3>
+
+      <form (submit)="onSubmit()">
+        <div>
+          <label for="startDateTime">Start Date and Time:</label>
+          <ngxsmk-datepicker
+            id="startDateTime"
+            [field]="appointmentForm.startDateTime"
+            mode="single"
+            [showTime]=true
+            [minuteInterval]="15"
+            placeholder="Select Start and End Date/Time">
+          </ngxsmk-datepicker>
+        </div>
+        <div>
+          <label for="endDateTime">End Date and Time:</label>
+          <ngxsmk-datepicker
+            id="endDateTime"
+            [field]="appointmentForm.endDateTime"
+            mode="single"
+            [showTime]=true
+            [minuteInterval]="15"
+            placeholder="Select Start and End Date/Time">
+          </ngxsmk-datepicker>
+        </div>
+        <div>
+          <label for="serviceToProvide">Service(s) can provide::</label>
+          <ng-select
+            id="services-to-provide"
+            [items]="serviceTypes()"
+            bindLabel="name"
+            bindValue="id"
+            [formField]="appointmentForm.servicesToProvide"
+            [multiple]="true"
+            groupBy="group"
+            [selectableGroup]="true"
+            [selectableGroupAsModel]="false"
+            [closeOnSelect]="false"
+            placeholder="Select services to provide">
+          </ng-select>
+        </div>
+        <div>
+          <label for="serviceToProvide">Timeslot type::</label>
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </form>
+      <p>Start date/time: {{ availableTImeSlot().startDateTime | date:'medium' }}</p>
+      <p>End date/time: {{ availableTImeSlot().endDateTime | date:'medium' }}</p>
+      <p>Service types: {{ availableTImeSlot().servicesToProvide }}</p>
+    </div>
+  </section>
+</main>
