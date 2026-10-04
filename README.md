@@ -1,7 +1,7 @@
 [# Clinic Booking Application (Angular + Spring Boot)
 
 Full-stack healthcare management platform with:
-- Angular 12 Frontend (patient / doctor / admin interfaces)
+- Angular 12 Frontend (patient / therapist / admin interfaces)
 - Spring Boot (REST API, JWT auth, MySQL persistence)
 - MySQL 8 Database
 
@@ -9,8 +9,8 @@ Full-stack healthcare management platform with:
 ## 1. Architecture Overview
 Component | Tech | Default Port | Purpose
 --------- | ---- | ------------ | -------
-Frontend | Angular 12 | 4200 | UI for users, doctors, admin
-Backend API | Spring Boot (Java 17) | 8081 | Auth, users, doctors, appointments, prescriptions
+Frontend | Angular 12 | 4200 | UI for users, therapists, admin
+Backend API | Spring Boot (Java 17) | 8081 | Auth, users, therapists, appointments, prescriptions
 AI Service | Python Flask | 10000 | Symptom/disease prediction endpoint(s)
 Database | MySQL 8 | 3306 | Persistent storage
 
@@ -117,15 +117,15 @@ Services use an `ApiConfigService` (absolute URL) OR dev proxy (if re-enabled).
 
 Key endpoints (unauthenticated):
 - `POST /registeruser` – create patient
-- `POST /registerdoctor` – create doctor
+- `POST /registerdoctor` – create therapist
 - `POST /loginuser` – user login (returns JWT token)
-- `POST /logindoctor` – doctor login (returns JWT token)
+- `POST /logindoctor` – therapist login (returns JWT token)
 
 On success, frontend stores:
 - `sessionStorage.TOKEN = Bearer <jwt>`
 - `sessionStorage.USER` and `sessionStorage.ROLE`
 
-If duplicate user/doctor email -> backend returns **409 Conflict** with plain message.
+If duplicate user/therapist email -> backend returns **409 Conflict** with plain message.
 
 ---
 ## 9. Typical Start Sequence (All Services)
@@ -191,7 +191,7 @@ SciPy / NumPy version warning | Incompatible wheel with latest NumPy | Pin versi
 To wipe DB (dev):
 ```sql
 TRUNCATE TABLE user;
-TRUNCATE TABLE doctor;
+TRUNCATE TABLE therapist;
 ```
 Or temporarily set `spring.jpa.hibernate.ddl-auto=create-drop` and restart.
 
@@ -219,3 +219,7 @@ Doctors: doc_one@gmail.com/password
          doc_two@gmail.com/password
 
 Users: user_one@gmail.com/password
+
+1. docker compose up -d
+2. http://localhost:8080, login Keycloak, and create organizations.
+3. create users, assign to previous created organizations, assign role to the user.

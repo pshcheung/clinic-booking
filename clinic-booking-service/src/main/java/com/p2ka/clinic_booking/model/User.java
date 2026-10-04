@@ -1,105 +1,29 @@
 package com.p2ka.clinic_booking.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.SuperBuilder;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-public class User 
-{
-	@Id
-	private String email;
-	private String username;
-	private String mobile;
-	private String gender;
-	private String age;
-	private String address;
-	private String password;
-	
-	public User() 
-	{
-		super();
-	}
-
-	public User(String email, String username, String mobile, String gender, String age, String address, String password)
-	{
-		super();
-		this.email = email;
-		this.username = username;
-		this.mobile = mobile;
-		this.gender = gender;
-		this.age = age;
-		this.address = address;
-		this.password = password;
-	}
-
-	public String getEmail() 
-	{
-		return email;
-	}
-
-	public void setEmail(String email) 
-	{
-		this.email = email;
-	}
-
-	public String getUsername() 
-	{
-		return username;
-	}
-
-	public void setUsername(String username) 
-	{
-		this.username = username;
-	}
-
-	public String getMobile()
-	{
-		return mobile;
-	}
-
-	public void setMobile(String mobile) 
-	{
-		this.mobile = mobile;
-	}
-
-	public String getGender() 
-	{
-		return gender;
-	}
-
-	public void setGender(String gender) 
-	{
-		this.gender = gender;
-	}
-
-	public String getAge()
-    {
-		return age;
-	}
-
-	public void setAge(String age) 
-	{
-		this.age = age;
-	}
-
-	public String getAddress() 
-	{
-		return address;
-	}
-
-	public void setAddress(String address) 
-	{
-		this.address = address;
-	}
-
-	public String getPassword() 
-	{
-		return password;
-	}
-
-	public void setPassword(String password) 
-	{
-		this.password = password;
-	}
-	
+@Getter
+@Setter
+@SuperBuilder
+@AllArgsConstructor
+@NoArgsConstructor
+@Document(collection = "users")
+public class User {
+    private String subject;  // unique id from the issuer.
+    private String email;
+    private String firstName;
+    private String lastName;
+    private String mobile;
+    private String gender;
+    private String age;
+    private String addressLine1;
+    private String addressLine2;
+    private String city;
+    private String province;
+    private String status;
 }

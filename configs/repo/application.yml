@@ -1,0 +1,5 @@
+# Tells the app to pull properties from the Config Server
+spring:
+    config:
+        import:
+            optional:configserver:http://config-server:8888/

@@ -1,0 +1,41 @@
+server:
+  port: 3333
+  shutdown: graceful
+
+spring:
+  application:
+    name: config-server
+  profiles:
+    active: native
+  cloud:
+    config:
+      server:
+#        git:
+#          uri: https://github.com/spring-cloud-samples/config-repo
+#          uri: file:/C:/dev/event-tracker_base/service/config-repo
+        native:
+          search-locations=file://C:/dev/clinc-booking/config-repo/application.yml
+
+eureka:
+  client:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: ${eureka_url:http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka/}
+#  instance:
+#    hostname: localhost
+      
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+  
+serverclient:
+    fetchRegistry: true
+    registerWithEureka: true
+    serviceUrl:
+      defaultZone: http://${eureka.hostname}
