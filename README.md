@@ -1,7 +1,7 @@
 [# Clinic Booking Application (Angular + Spring Boot)
 
 Full-stack healthcare management platform with:
-- Angular 12 Frontend (patient / therapist / admin interfaces)
+- Angular 22 Frontend (patient / therapist / admin interfaces)
 - Spring Boot (REST API, JWT auth, MySQL persistence)
 - MySQL 8 Database
 
@@ -9,7 +9,7 @@ Full-stack healthcare management platform with:
 ## 1. Architecture Overview
 Component | Tech | Default Port | Purpose
 --------- | ---- | ------------ | -------
-Frontend | Angular 12 | 4200 | UI for users, therapists, admin
+Frontend | Angular 22 | 4200 | UI for users, therapists, admin
 Backend API | Spring Boot (Java 17) | 8081 | Auth, users, therapists, appointments, prescriptions
 AI Service | Python Flask | 10000 | Symptom/disease prediction endpoint(s)
 Database | MySQL 8 | 3306 | Persistent storage
@@ -19,8 +19,7 @@ Database | MySQL 8 | 3306 | Persistent storage
 Install / verify:
 - Java 17 (`java -version`)
 - Maven 3.6+ (`mvn -v`)
-- Node.js 16.x or 18.x LTS recommended (Angular 12 is not tested on Node 22)  
-  (If you must use Node 22: set `NODE_OPTIONS=--openssl-legacy-provider` when running.)
+- Node.js 26.11.1 (the frontend pins this version in `clinic-booking-ui/.nvmrc`; npm 11.20.0 is declared in `package.json`)
 - Python 3.11+ (`python --version`)
 - MySQL 8 (`mysql --version`)
 
@@ -74,19 +73,16 @@ Backend starts on: http://localhost:8081
 Install dependencies (first time):
 ```powershell
 cd "Smart-Health-Care-System-main/SmartHealthCareSystem-Frontend"
-$env:NODE_OPTIONS="--openssl-legacy-provider"   # Only if using Node >=17
-npm install --legacy-peer-deps
+npm ci
 ```
 Start dev server:
 ```powershell
-$env:NODE_OPTIONS="--openssl-legacy-provider"
 npm start
 ```
 Access UI: http://localhost:4200
 
 ### Production Build
 ```powershell
-$env:NODE_OPTIONS="--openssl-legacy-provider"
 npm run build -- --configuration=production
 ```
 Output: `dist/HealthCareManagement/`
@@ -138,7 +134,6 @@ Open three PowerShell windows (or run sequentially):
 2. Frontend:
    ```powershell
    cd "Smart-Health-Care-System-main/SmartHealthCareSystem-Frontend"
-   $env:NODE_OPTIONS="--openssl-legacy-provider"
    npm start
    ```
 3. AI Service:
@@ -168,7 +163,6 @@ Button disabled on Register | Form invalid (confirm password not bound) | Ensure
 "User already exists" even after restart | Using `update` schema & row exists | Delete row in table or switch to `create-drop` temporarily
 CORS errors | Direct cross-origin calls | Run via same origin (Angular dev) or add proxy / configure CORS in backend
 Angular build budget errors | Strict default budgets | Budgets increased in `angular.json`
-Node engine warnings | Using Node 22 with Angular 12 | Use Node 16/18 LTS or keep `--openssl-legacy-provider`
 SciPy / NumPy version warning | Incompatible wheel with latest NumPy | Pin versions if needed: `pip install numpy==2.0.2 scipy==1.11.4`
 
 ---
