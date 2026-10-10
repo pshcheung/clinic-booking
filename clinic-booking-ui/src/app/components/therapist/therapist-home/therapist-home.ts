@@ -1,14 +1,11 @@
 import {Component, inject} from '@angular/core';
 import {TimeslotStore} from '../../../stores/timeslot-store';
 import {TimeSlot} from '../../../models/time-slot';
-import {DatePipe, JsonPipe, NgForOf} from '@angular/common';
-import {watchState} from '@ngrx/signals';
+import {DatePipe} from '@angular/common';
 
 @Component({
   selector: 'app-therapist-home',
   imports: [
-    JsonPipe,
-    NgForOf,
     DatePipe
   ],
   templateUrl: './therapist-home.html',

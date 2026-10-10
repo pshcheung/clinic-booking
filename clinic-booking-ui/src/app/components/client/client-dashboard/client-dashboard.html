@@ -1,4 +1,4 @@
-<p>{{title() | translate }} works!</p>
+<p>{{ title() | translate }} {{ 'common.pageReady' | translate }}</p>
 
 <!--@if ((books$ | async)?.length) {
   <p class="no-books">No books found. Did you start the <code>example-server</code> project?</p>
@@ -17,15 +17,15 @@
     <ul class="book-list">
       @for (book of (books); track book.id) {
         <li class="book-item">
-          <strong>{{ book.title }}</strong> by {{ book.author }} ({{ book.year }})
+          <strong>{{ book.title }}</strong> {{ 'client.books.by' | translate }} {{ book.author }} ({{ book.year }})
         </li>
       }
     </ul>
   } @else {
     <!-- Optional: Content to display if the array is empty -->
-    <p>No books found.</p>
+    <p>{{ 'client.books.empty' | translate }}</p>
   }
 } @else {
   <!-- Optional: Content to display while the observable is null (loading/error) -->
-  <p>Loading books...</p>
+  <p>{{ 'client.books.loading' | translate }}</p>
 }

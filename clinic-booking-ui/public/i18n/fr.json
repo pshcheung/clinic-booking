@@ -1,0 +1,74 @@
+{
+  "common": {
+    "close": "Fermer", "skipToContent": "Passer au contenu principal", "cancel": "Annuler", "saving": "Enregistrement…", "saveChanges": "Enregistrer les changements", "pageReady": "est prêt.",
+    "weekdays": {
+      "short": {"0": "Dim", "1": "Lun", "2": "Mar", "3": "Mer", "4": "Jeu", "5": "Ven", "6": "Sam"},
+      "full": {"0": "dimanche", "1": "lundi", "2": "mardi", "3": "mercredi", "4": "jeudi", "5": "vendredi", "6": "samedi"}
+    }
+  },
+  "app": {"title": "Réservation clinique | Massothérapie et mieux-être"},
+  "header": {
+    "brand": "Réservation clinique", "tagline": "Massothérapie et mieux-être", "home": "Accueil – Réservation clinique", "mainNavigation": "Navigation principale", "english": "Anglais", "french": "Français", "treatments": "Soins", "approach": "Notre approche", "howItWorks": "Comment ça marche", "admin": "Administration", "therapist": "Thérapeute", "myCare": "Mes soins", "language": "Choisir la langue", "signIn": "Connexion", "signOut": "Déconnexion"
+  },
+  "footer": {"note": "Des soins attentionnés, adaptés à vos besoins.", "backToTop": "Retour en haut", "motto": "Des soins à votre rythme."},
+  "services": {"BUCCAL_MASSAGE": "Massage buccal", "LYMPHATIC_DRAINAGE": "Drainage lymphatique", "SPORTS_MASSAGE": "Massage sportif", "SPECIAL_MASSAGE": "Massage spécialisé", "THAI_MASSAGE": "Massage thaïlandais"},
+  "home": {
+    "documentTitle": "Réservation clinique | Massothérapie et mieux-être",
+    "eyebrow": "Massothérapie · travail corporel · mieux-être", "heroTitle": "Retrouvez le", "heroTitleEmphasis": "bien-être.",
+    "heroIntro": "Un espace apaisant pour relâcher les tensions, retrouver l’équilibre et renouer avec votre corps. Vos soins commencent par une conversation.",
+    "bookSession": "Réserver une séance", "exploreTreatments": "Découvrir les soins", "heroNote": "Des soins pensés pour vous, jamais à la chaîne.", "roomAlt": "Une salle de soins calme et ensoleillée aux tons naturels et chaleureux", "artTitle": "Un moment pour vous", "artSubtitle": "Des soins attentionnés dès le premier bonjour.", "artCaption": "Un rythme plus doux commence ici", "approachLabel": "Notre approche des soins",
+    "pillars": {
+      "personal": {"title": "Une attention personnelle", "text": "Vos objectifs guident chaque séance."},
+      "reset": {"title": "Un espace pour souffler", "text": "Un lieu accueillant pour ralentir."},
+      "continued": {"title": "Un accompagnement durable", "text": "Du soutien pour votre bien-être au quotidien."}
+    },
+    "treatments": {
+      "eyebrow": "Trouvez votre moment de détente", "title": "Des soins adaptés", "titleEmphasis": "à vos besoins.",
+      "intro": "Chaque personne est différente. Prenons le temps de comprendre vos besoins et de personnaliser les soins selon votre confort et vos objectifs.",
+      "cards": {
+        "therapeutic": {"title": "Massage thérapeutique", "text": "Un travail corporel ciblé et réfléchi pour apaiser les tensions et faciliter vos mouvements.", "action": "Découvrir le massage thérapeutique et réserver une séance"},
+        "restorative": {"title": "Détente réparatrice", "text": "Un soin apaisant pour vous aider à vous déposer, à relâcher et à respirer pleinement.", "action": "Découvrir la détente réparatrice et réserver une séance"},
+        "specialized": {"title": "Travail corporel spécialisé", "text": "Des techniques choisies selon vos préférences, votre confort et votre plan de soins.", "action": "Découvrir le travail corporel spécialisé et réserver une séance"}
+      }
+    },
+    "exploreCare": "Découvrir les soins",
+    "approach": {
+      "eyebrow": "Une approche plus humaine", "title": "D’abord écouter.", "titleEmphasis": "Puis collaborer.", "artLead": "Inspirez", "artEmphasis": "faites de la place",
+      "intro": "Se sentir à l’aise est essentiel. Nous discuterons de vos besoins, expliquerons les options et veillerons à votre confort à chaque étape.",
+      "points": {"conversation": "Une conversation attentive avant les soins", "choices": "Des choix clairs et une pression adaptée", "space": "Un espace calme et respectueux, à votre rythme"},
+      "link": "En savoir plus sur notre approche"
+    },
+    "steps": {
+      "eyebrow": "Simple dès le départ", "title": "Votre prochaine étape", "titleEmphasis": "peut être toute simple.", "action": "Trouver un moment qui vous convient",
+      "items": {
+        "share": {"title": "Parlez-nous de vos besoins", "text": "Dites-nous ce qui vous amène et ce qui vous aiderait à vous sentir à l’aise."},
+        "choose": {"title": "Choisissez un moment", "text": "Parcourez les séances disponibles et choisissez un rendez-vous adapté à votre horaire."},
+        "arrive": {"title": "Venez comme vous êtes", "text": "Nous vous accueillerons comme vous êtes et adapterons les soins ensemble."}
+      }
+    },
+    "closing": {"eyebrow": "Prenez du temps pour vous", "title": "Un peu d’attention peut", "titleEmphasis": "faire beaucoup de bien.", "action": "Réserver votre visite"}
+  },
+  "availability": {
+    "documentTitle": "Soumettre des disponibilités | Réservation clinique",
+    "eyebrow": "Votre horaire", "title": "Proposez vos disponibilités", "intro": "Choisissez une journée ou un horaire hebdomadaire récurrent. Ajoutez les plages nécessaires et sélectionnez les soins que vous offrez.",
+    "cardTitle": "Nouvelles disponibilités", "cardIntro": "Chaque plage horaire devient un créneau distinct, en attente d’approbation.", "modeLegend": "Comment souhaitez-vous ajouter vos disponibilités?",
+    "single": {"title": "Une journée", "description": "Ajoutez une ou plusieurs plages à une date précise."}, "weekly": {"title": "Répéter chaque semaine", "description": "Choisissez les jours de la semaine et une période."},
+    "date": "Date", "repeatFrom": "Répéter à partir du", "repeatThrough": "Répéter jusqu’au", "daysOfWeek": "Jours de la semaine", "periodsTitle": "Plages horaires de la journée", "periodNumber": "Plage {{number}}", "periodAdded": "Plage horaire ajoutée. Il y a maintenant {{count}} plages.", "periodRemoved": "Plage horaire retirée. Il reste {{count}} plages.", "periodsDescription": "Ajoutez des plages distinctes pendant lesquelles vous êtes disponible.", "from": "De", "to": "à", "until": "Jusqu’à", "remove": "Retirer", "removePeriod": "Retirer la plage", "addPeriod": "Ajouter une autre plage horaire", "services": "Soins offerts", "servicesHelp": "Sélectionnez tous les soins que vous êtes à l’aise d’offrir pendant ces plages.",
+    "preview": {"singleTime": "{{count}} créneau sera créé", "multipleTimes": "{{count}} créneaux seront créés", "firstDates": "Premières dates :", "date": "Date :", "andMore": "et d’autres", "singlePeriodPerDay": "{{count}} plage par jour", "multiplePeriodsPerDay": "{{count}} plages par jour", "empty": "Sélectionnez des dates et des jours pour voir un aperçu."},
+    "pendingNote": "Les nouvelles disponibilités restent en attente jusqu’à leur approbation.", "submitting": "Envoi…", "submit": "Soumettre les disponibilités", "successSingle": "{{count}} disponibilité a été soumise pour approbation.", "successMultiple": "{{count}} disponibilités ont été soumises pour approbation.",
+    "errors": {"chooseWeekday": "Choisissez au moins un jour de la semaine.", "chooseDate": "Choisissez une date pour vos disponibilités.", "dateRange": "Choisissez une période valide.", "chooseService": "Choisissez au moins un soin.", "invalidPeriod": "Chaque plage doit avoir une heure de début valide et une heure de fin ultérieure.", "overlap": "Les plages horaires d’une même journée ne peuvent pas se chevaucher.", "save": "Impossible de soumettre les disponibilités. Veuillez réessayer."}
+  },
+  "therapist": {
+    "nav": {"title": "Thérapeute", "subtitle": "Espace de soins", "clinic": "VOTRE CLINIQUE", "ariaLabel": "Espace thérapeute", "calendar": "Calendrier", "availability": "Soumettre des disponibilités", "noteTitle": "Faites place à de bons soins.", "noteText": "Consultez votre horaire et vos disponibilités soumises ici."},
+    "dashboard": {"title": "Tableau de bord du thérapeute"}
+  },
+  "calendar": {
+    "documentTitle": "Calendrier du thérapeute | Réservation clinique",
+    "eyebrow": "Disponibilités", "title": "Calendrier des créneaux", "subtitle": "Consultez les créneaux soumis et modifiez ceux en attente d’approbation.", "monthControls": "Commandes des mois du calendrier", "previousMonth": "Mois précédent", "nextMonth": "Mois suivant", "legend": "Légende des événements du calendrier", "scrollHint": "Calendrier. Faites défiler horizontalement pour voir tous les jours de la semaine.",
+    "status": {"pending": "En attente", "approved": "Approuvé", "denied": "Refusé", "label": "Statut"}, "appointment": "Rendez-vous client", "loading": "Chargement des créneaux…", "slotAt": "créneau à", "appointmentWith": "Rendez-vous avec", "patient": "le patient", "at": "à", "empty": "Aucun créneau ni rendez-vous client pour le moment.", "timeslotDetails": "Détails du créneau", "time": "Heure", "services": "Soins", "duration": "Durée", "minutes": "{{count}} minutes", "updatePending": "Modifier le créneau en attente", "startTime": "Heure de début", "endTime": "Heure de fin", "date": "Date", "patientAppointment": "Rendez-vous du patient", "patientEmail": "Courriel du patient", "age": "Âge", "gender": "Genre", "service": "Soin", "reason": "Motif du rendez-vous",
+    "errors": {"appointments": "Les créneaux ont été chargés, mais les rendez-vous clients n’ont pas pu l’être.", "load": "Impossible de charger les créneaux. Actualisez la page pour réessayer.", "endAfterStart": "L’heure de fin doit être après l’heure de début.", "update": "Impossible de modifier le créneau. Seuls les créneaux en attente peuvent être modifiés."}
+  },
+  "admin": {"dashboard": {"title": "Tableau de bord administrateur", "documentTitle": "Administration | Réservation clinique"}},
+  "manager": {"dashboard": {"title": "Tableau de bord gestionnaire"}},
+  "client": {"dashboard": {"title": "Tableau de bord client", "documentTitle": "Espace client | Réservation clinique"}, "books": {"by": "par", "empty": "Aucun livre trouvé.", "loading": "Chargement des livres…"}}
+}

@@ -1,0 +1,108 @@
+<section class="calendar-page">
+  <header class="calendar-header">
+    <div>
+      <p class="eyebrow">{{ 'calendar.eyebrow' | translate }}</p>
+      <h1>{{ 'calendar.title' | translate }}</h1>
+      <p class="subtitle">{{ 'calendar.subtitle' | translate }}</p>
+    </div>
+    <div class="month-controls" role="group" [attr.aria-label]="'calendar.monthControls' | translate">
+      <button type="button" [attr.aria-label]="'calendar.previousMonth' | translate" (click)="previousMonth()">‹</button>
+      <h2 aria-live="polite">{{ monthLabel }}</h2>
+      <button type="button" [attr.aria-label]="'calendar.nextMonth' | translate" (click)="nextMonth()">›</button>
+    </div>
+  </header>
+
+  <div class="legend" role="group" [attr.aria-label]="'calendar.legend' | translate">
+    <span><i class="pending-dot"></i>{{ 'calendar.status.pending' | translate }}</span>
+    <span><i class="accepted-dot"></i>{{ 'calendar.status.approved' | translate }}</span>
+    <span><i class="rejected-dot"></i>{{ 'calendar.status.denied' | translate }}</span>
+    <span><i class="appointment-dot"></i>{{ 'calendar.appointment' | translate }}</span>
+  </div>
+
+  @if (error()) { <p class="notice error" role="alert">{{ error() | translate }}</p> }
+  @if (loading()) { <p class="notice" role="status">{{ 'calendar.loading' | translate }}</p> }
+  @if (!loading()) {
+    <div class="calendar-scroll" role="region" tabindex="0" [attr.aria-label]="'calendar.scrollHint' | translate">
+      <table class="calendar">
+        <caption class="visually-hidden">{{ monthLabel }} — {{ 'calendar.title' | translate }}</caption>
+        <thead><tr>@for (weekday of [0, 1, 2, 3, 4, 5, 6]; track weekday) { <th scope="col">{{ ('common.weekdays.short.' + weekday) | translate }}</th> }</tr></thead>
+        <tbody>
+          @for (week of calendarWeeks; track week[0].toISOString()) {
+            <tr>@for (day of week; track day.toISOString()) {
+              <td class="day-cell" [class.outside-month]="!isCurrentMonth(day)">
+                <time class="day-number" [attr.datetime]="day | date:'yyyy-MM-dd':undefined:locale"><span class="visually-hidden">{{ day | date:'fullDate':undefined:locale }}</span><span aria-hidden="true">{{ day | date:'d':undefined:locale }}</span></time>
+                <div class="day-slots">
+                  @for (slot of slotsFor(day); track slot.id ?? slot.startDateTime) {
+                    <button type="button" class="slot-chip" [ngClass]="statusClass(slot)" (click)="openDetails(slot)"
+                            [attr.aria-label]="(statusName(slot) | translate) + ' · ' + (day | date:'fullDate':undefined:locale) + ' · ' + (slot.startDateTime | date:'shortTime':undefined:locale)">
+                      <span>{{ slot.startDateTime | date:'shortTime':undefined:locale }}</span><span>{{ statusName(slot) | translate }}</span>
+                    </button>
+                  }
+                  @for (appointment of appointmentsFor(day); track appointment.id ?? appointment.patientid + appointment.date + appointment.slot) {
+                    <button type="button" class="slot-chip appointment" (click)="openAppointmentDetails(appointment)"
+                            [attr.aria-label]="('calendar.appointmentWith' | translate) + ' ' + (appointment.patientname || ('calendar.patient' | translate)) + ' · ' + (day | date:'fullDate':undefined:locale) + ' · ' + appointmentTime(appointment)">
+                      <span>{{ appointmentTime(appointment) }}</span><span>{{ 'calendar.appointment' | translate }}</span>
+                    </button>
+                  }
+                </div>
+              </td>
+            }</tr>
+          }
+        </tbody>
+      </table>
+    </div>
+    @if (!slots().length && !appointments().length) { <p class="empty-state">{{ 'calendar.empty' | translate }}</p> }
+  }
+</section>
+
+@if (selectedSlot(); as slot) {
+  <div class="dialog-backdrop">
+    <section class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="slot-title" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeDetails()">
+      <button type="button" class="close-button" [attr.aria-label]="'common.close' | translate" (click)="closeDetails()">×</button>
+      <p class="eyebrow">{{ 'calendar.timeslotDetails' | translate }}</p>
+      <h2 id="slot-title">{{ slot.startDateTime | date:'EEEE, MMMM d, y':undefined:locale }}</h2>
+      <span class="status-badge" [ngClass]="statusClass(slot)">{{ statusName(slot) | translate }}</span>
+
+      @if (!editing()) {
+        <dl>
+          <div><dt>{{ 'calendar.time' | translate }}</dt><dd>{{ slot.startDateTime | date:'shortTime':undefined:locale }} – {{ slot.endDateTime | date:'shortTime':undefined:locale }}</dd></div>
+          <div><dt>{{ 'calendar.services' | translate }}</dt><dd>{{ serviceNames(slot) }}</dd></div>
+          <div><dt>{{ 'calendar.duration' | translate }}</dt><dd>{{ 'calendar.minutes' | translate: {count: durationMinutes(slot)} }}</dd></div>
+        </dl>
+        @if (statusClass(slot) === 'proposed') {
+          <button type="button" class="primary-button" (click)="beginEdit()">{{ 'calendar.updatePending' | translate }}</button>
+        }
+      } @else {
+        <div class="edit-fields">
+          <label>{{ 'calendar.startTime' | translate }} <input type="datetime-local" [(ngModel)]="editStart"></label>
+          <label>{{ 'calendar.endTime' | translate }} <input type="datetime-local" [(ngModel)]="editEnd"></label>
+        </div>
+        <div class="dialog-actions">
+          <button type="button" class="secondary-button" (click)="editing.set(false)">{{ 'common.cancel' | translate }}</button>
+          <button type="button" class="primary-button" [disabled]="saving()" (click)="saveEdit()">{{ (saving() ? 'common.saving' : 'common.saveChanges') | translate }}</button>
+        </div>
+      }
+    </section>
+  </div>
+}
+
+@if (selectedAppointment(); as appointment) {
+  <div class="dialog-backdrop">
+    <section class="details-dialog" role="dialog" aria-modal="true" aria-labelledby="appointment-title" cdkTrapFocus [cdkTrapFocusAutoCapture]="true" (keydown.escape)="closeAppointmentDetails()">
+      <button type="button" class="close-button" [attr.aria-label]="'common.close' | translate" (click)="closeAppointmentDetails()">×</button>
+      <p class="eyebrow">{{ 'calendar.appointment' | translate }}</p>
+      <h2 id="appointment-title">{{ appointment.patientname || ('calendar.patientAppointment' | translate) }}</h2>
+      <span class="status-badge appointment">{{ 'calendar.appointment' | translate }}</span>
+      <dl>
+        <div><dt>{{ 'calendar.date' | translate }}</dt><dd>{{ appointmentDate(appointment) | date:'EEEE, MMMM d, y':undefined:locale }}</dd></div>
+        <div><dt>{{ 'calendar.time' | translate }}</dt><dd>{{ appointmentTime(appointment) }}</dd></div>
+        @if (appointment.email) { <div><dt>{{ 'calendar.patientEmail' | translate }}</dt><dd>{{ appointment.email }}</dd></div> }
+        @if (appointment.age) { <div><dt>{{ 'calendar.age' | translate }}</dt><dd>{{ appointment.age }}</dd></div> }
+        @if (appointment.gender) { <div><dt>{{ 'calendar.gender' | translate }}</dt><dd>{{ appointment.gender }}</dd></div> }
+        @if (appointment.specialization) { <div><dt>{{ 'calendar.service' | translate }}</dt><dd>{{ appointment.specialization }}</dd></div> }
+        @if (appointment.problem) { <div><dt>{{ 'calendar.reason' | translate }}</dt><dd>{{ appointment.problem }}</dd></div> }
+        @if (appointment.appointmentstatus) { <div><dt>{{ 'calendar.status.label' | translate }}</dt><dd>{{ appointment.appointmentstatus }}</dd></div> }
+      </dl>
+    </section>
+  </div>
+}

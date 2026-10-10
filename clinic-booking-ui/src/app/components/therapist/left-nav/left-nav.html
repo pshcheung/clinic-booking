@@ -1,18 +1,9 @@
 <aside class="sidebar">
-  <div class="logo">Admin Panel</div>
-
-  <nav>
-    <!--<button class="nav-item active">Dashboard</button>-->
-    <a routerLink="/therapist" class="my-custom-button" routerLinkActive="my-custom-button-active" [routerLinkActiveOptions]="{ exact: true }">Dashboard</a>
-    <a routerLink="/therapist/add-timeslot" class="my-custom-button" routerLinkActive="my-custom-button-active" [routerLinkActiveOptions]="{ exact: true }">Add timeslots</a>
-    <a routerLink="/" class="my-custom-button">Clients</a>
-    <a routerLink="/" class="my-custom-button">Invoices</a>
-    <a routerLink="/" class="my-custom-button">Reports</a>
-    <a routerLink="/" class="my-custom-button">Settings</a>
-<!--    <button class="nav-item">Appointments</button>
-    <button class="nav-item">Clients</button>
-    <button class="nav-item">Invoices</button>
-    <button class="nav-item">Reports</button>
-    <button class="nav-item">Settings</button>-->
+  <div class="workspace-label"><span class="workspace-mark" aria-hidden="true">✳</span><span><strong>{{ 'therapist.nav.title' | translate }}</strong><small>{{ 'therapist.nav.subtitle' | translate }}</small></span></div>
+  <p class="sidebar-caption">{{ 'therapist.nav.clinic' | translate }}</p>
+  <nav [attr.aria-label]="'therapist.nav.ariaLabel' | translate">
+    <a routerLink="/therapist" class="workspace-link" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page"><span aria-hidden="true">▦</span> {{ 'therapist.nav.calendar' | translate }}</a>
+    <a routerLink="/therapist/add-timeslot" class="workspace-link" routerLinkActive="active" ariaCurrentWhenActive="page"><span aria-hidden="true">＋</span> {{ 'therapist.nav.availability' | translate }}</a>
   </nav>
+  <div class="sidebar-note"><span aria-hidden="true">✳</span><p>{{ 'therapist.nav.noteTitle' | translate }}<small>{{ 'therapist.nav.noteText' | translate }}</small></p></div>
 </aside>

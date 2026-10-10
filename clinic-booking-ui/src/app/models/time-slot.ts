@@ -1,6 +1,7 @@
 import {ServiceType} from './service-type';
 
 export class TimeSlot {
+  id?: string;
   servicesToProvide : ServiceType[] = [];
   startDateTime: Date = new Date();
   endDateTime: Date = new Date();
@@ -17,7 +18,7 @@ export enum TimeSlotType {
 }
 
 export enum TimeSlotStatus {
-  PROPOSED = 0,
-  ACCEPTED = 1,
-  REJECTED = 2,
+  PROPOSED = 'PROPOSED',
+  ACCEPTED = 'ACCEPTED',
+  REJECTED = 'REJECTED',
 }

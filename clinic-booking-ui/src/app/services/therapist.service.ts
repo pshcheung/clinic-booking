@@ -5,6 +5,7 @@ import {environment} from '../../environments/environment';
 import {Therapist} from '../models/therapist';
 import {Client} from '../models/client';
 import {TimeSlot} from '../models/time-slot';
+import {Appointment} from '../models/appointment';
 
 const NAV_URL = environment.apiURL;
 
@@ -27,8 +28,12 @@ export class TherapistService {
     return this._http.get<any>(`${NAV_URL}/therapist`);
   }
 
-  getTimeSlots(): Observable<any> {
-    return this._http.get<any>(`${NAV_URL}/timeslot`);
+  getTimeSlots(): Observable<TimeSlot[]> {
+    return this._http.get<TimeSlot[]>(`${NAV_URL}/api/v1/therapists/timeslots`);
+  }
+
+  getAppointments(): Observable<Appointment[]> {
+    return this._http.get<Appointment[]>(`${NAV_URL}/api/v1/therapists/appointments`);
   }
 
   getAvailableSlotListForTherapist(): Observable<any> {
@@ -82,7 +87,30 @@ export class TherapistService {
   }
 
   public addBookingSlots(slot: TimeSlot): Observable<any> {
-    return this._http.post<any>(`${NAV_URL}/timeslot`, slot);
+    return this._http.post<any>(`${NAV_URL}/api/v1/therapists/timeslots`, [slot]);
+  }
+
+  submitTimeslots(slots: TimeSlot[]): Observable<string> {
+    const payload = slots.map(slot => ({...slot,
+      startDateTime: this.toLocalDateTime(slot.startDateTime),
+      endDateTime: this.toLocalDateTime(slot.endDateTime),
+      servicesToProvide: slot.servicesToProvide.map(service => ({...service, code: service.code ?? service.id})),
+    }));
+    return this._http.post(`${NAV_URL}/api/v1/therapists/timeslots`, payload, {responseType: 'text'});
+  }
+
+  updateTimeslot(slot: TimeSlot): Observable<TimeSlot> {
+    const payload = {...slot,
+      startDateTime: this.toLocalDateTime(slot.startDateTime),
+      endDateTime: this.toLocalDateTime(slot.endDateTime),
+      servicesToProvide: slot.servicesToProvide.map(service => ({...service, code: service.code ?? service.id})),
+    };
+    return this._http.put<TimeSlot>(`${NAV_URL}/api/v1/therapists/timeslots/${slot.id}`, payload);
+  }
+
+  private toLocalDateTime(value: Date): string {
+    const pad = (part: number) => String(part).padStart(2, '0');
+    return `${value.getFullYear()}-${pad(value.getMonth() + 1)}-${pad(value.getDate())}T${pad(value.getHours())}:${pad(value.getMinutes())}:${pad(value.getSeconds())}`;
   }
 
   public getProfileDetails(loggedUser: string): Observable<any> {

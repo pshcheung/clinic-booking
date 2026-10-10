@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
 
 @Component({
   standalone: true,
   selector: 'app-footer',
-  imports: [],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './footer.html',
   styleUrl: './footer.scss',
 })
 export class Footer {
+  scrollToTop(): void {
+    const behavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    window.scrollTo({top: 0, behavior});
+  }
 }

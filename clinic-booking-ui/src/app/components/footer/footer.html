@@ -1,3 +1,11 @@
-<footer>
-  <p>&copy; 2026 P2KA Inc.</p>
+<footer class="site-footer">
+  <div class="footer-inner">
+    <a class="footer-brand" routerLink="/">
+      <span class="footer-mark" aria-hidden="true">✳</span>
+      <span><strong>{{ 'header.brand' | translate }}</strong><small>{{ 'header.tagline' | translate }}</small></span>
+    </a>
+    <p class="footer-note">{{ 'footer.note' | translate }}</p>
+    <div class="footer-links"><a routerLink="/" fragment="treatments">{{ 'header.treatments' | translate }}</a><a routerLink="/" fragment="approach">{{ 'header.approach' | translate }}</a><button type="button" (click)="scrollToTop()">{{ 'footer.backToTop' | translate }} ↑</button></div>
+  </div>
+  <div class="footer-bottom"><span>© 2026 P2KA Inc.</span><span>{{ 'footer.motto' | translate }}</span></div>
 </footer>

@@ -1,5 +1,5 @@
 import {AuthGuardData, createAuthGuard} from 'keycloak-angular';
-import { ActivatedRouteSnapshot, CanActivateFn, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, CanActivateFn, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { inject } from '@angular/core';
 import Keycloak from 'keycloak-js';
 
@@ -29,22 +29,24 @@ const isAccessAllowed = async (
   }
 
   const hasRequiredRole = (roles: string[]): boolean => {
-    return Object.values(grantedRoles.realmRoles).some((roles) => roles.includes(roles));
+    return roles.some((role) => grantedRoles.realmRoles.includes(role));
   }
 
-  const isBelongToOrganization = async (): Promise<boolean> => {
-    // Get the user's token and decode it to access claims
+  const isBelongToOrganization = (): boolean => {
     const parsedToken = keycloak.tokenParsed;
-
-    // Access the organization claim (the claim name depends on your Keycloak setup)
-    const userOrganizations = parsedToken ? parsedToken['organization'] : null; // Replace 'organization_id' with your actual claim name
-    const requiredOrganization = route.data['organization'];
-
-    // Check if the user's organization matches the required organization for the route
-    return Object.values(userOrganizations).some((org) => org === requiredOrganization);
+    const organizations = parsedToken?.['organization'];
+    const requiredOrganization = route.data['organization'] as string | undefined;
+    if (!requiredOrganization) return true;
+    if (Array.isArray(organizations)) return organizations.includes(requiredOrganization);
+    if (!organizations || typeof organizations !== 'object') return false;
+    return Object.entries(organizations).some(([name, organization]) =>
+      name === requiredOrganization || organization === requiredOrganization ||
+      (organization !== null && typeof organization === 'object' &&
+        Object.values(organization as Record<string, unknown>).includes(requiredOrganization))
+    );
   }
 
-  return authenticated && hasRequiredRole(requiredRoles) && await isBelongToOrganization();
+  return authenticated && hasRequiredRole(requiredRoles) && isBelongToOrganization();
 
 /*  const router = inject(Router);
   return router.parseUrl('/forbidden');*/

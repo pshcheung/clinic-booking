@@ -1,11 +1,13 @@
 export class Appointment {
+    id?: number | string;
     patientname : string = '';
     patientid : string = '';
     email : string = '';
     doctorname : string = '';
     specialization : string = '';
-    startDateTime : Date = new Date();
-    endDateTime : Date = new Date();
+    date : string = '';
+    startDateTime? : Date | string;
+    endDateTime? : Date | string;
     age : string = '';
     gender : string = ''
     problem : string = '';

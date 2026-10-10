@@ -1,23 +1,17 @@
-import {Component, signal} from '@angular/core';
-import {RouterOutlet} from "@angular/router";
-import {TranslatePipe, TranslateService} from "@ngx-translate/core";
-
-import defaultLanguage from '../../../../public/i18n/en.json';
+import {Component, inject} from '@angular/core';
+import {RouterLink} from '@angular/router';
+import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageService} from '../../services/language.service';
 
 @Component({
   standalone: true,
   selector: 'app-home',
-  imports: [
-      TranslatePipe
-  ],
+  imports: [RouterLink, TranslatePipe],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
 export class Home {
-  protected readonly title = signal<string>('app.title');
-
-  constructor(private translate: TranslateService) {
-    translate.setTranslation('en', defaultLanguage);
-    translate.setFallbackLang('en');
+  constructor() {
+    inject(LanguageService).setPageTitle('home.documentTitle');
   }
 }

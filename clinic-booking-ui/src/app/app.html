@@ -1,9 +1,6 @@
-<!-- src/app/app.component.html -->
+<a class="skip-link" href="#main-content">{{ 'common.skipToContent' | translate }}</a>
 <app-header></app-header>
-
-<section class="hero">
-  <!-- The router-outlet is where the content of specific routes (e.g., home, about, contact pages) will be displayed -->
+<main class="app-main" id="main-content" tabindex="-1">
   <router-outlet></router-outlet>
-</section>
-
+</main>
 <app-footer></app-footer>

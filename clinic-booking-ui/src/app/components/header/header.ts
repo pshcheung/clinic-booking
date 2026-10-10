@@ -3,6 +3,7 @@ import {RouterLink} from '@angular/router';
 import Keycloak from 'keycloak-js';
 import {HasRolesDirective, KEYCLOAK_EVENT_SIGNAL, KeycloakEventType, ReadyArgs, typeEventArgs} from 'keycloak-angular';
 import {TranslatePipe} from '@ngx-translate/core';
+import {AppLanguage, LanguageService} from '../../services/language.service';
 
 @Component({
   standalone: true,
@@ -10,7 +11,7 @@ import {TranslatePipe} from '@ngx-translate/core';
   imports: [
     RouterLink,
     HasRolesDirective,
-    TranslatePipe
+    TranslatePipe,
   ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
@@ -20,6 +21,7 @@ export class Header {
   keycloakStatus: string | undefined;
   private readonly keycloak = inject(Keycloak);
   private readonly keycloakSignal = inject(KEYCLOAK_EVENT_SIGNAL);
+  readonly languageService = inject(LanguageService);
 
   constructor() {
     effect(() => {
@@ -43,5 +45,9 @@ export class Header {
 
   logout() {
     this.keycloak.logout();
+  }
+
+  setLanguage(language: AppLanguage): void {
+    this.languageService.setLanguage(language);
   }
 }

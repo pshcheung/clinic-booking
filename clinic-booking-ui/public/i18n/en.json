@@ -1,32 +1,170 @@
 {
-	"header": {
-		"title": "Clinic Booking",
-    "menu": {
-      "login-item": "Login",
-      "logout-item":  "Logout"
-    }
-	},
-  "admin": {
-    "dashboard": {
-      "title": "Admin Dashboard"
+  "common": {
+    "close": "Close",
+    "skipToContent": "Skip to main content",
+    "cancel": "Cancel",
+    "saving": "Saving…",
+    "saveChanges": "Save changes",
+    "pageReady": "is ready.",
+    "weekdays": {
+      "short": {"0": "Sun", "1": "Mon", "2": "Tue", "3": "Wed", "4": "Thu", "5": "Fri", "6": "Sat"},
+      "full": {"0": "Sunday", "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday"}
     }
   },
-  "manager": {
-    "dashboard": {
-      "title": "Manager Dashboard"
+  "app": {"title": "Clinic Booking | Massage therapy & wellness"},
+  "header": {
+    "brand": "Clinic Booking",
+    "tagline": "Massage therapy & wellness",
+    "home": "Clinic Booking home",
+    "mainNavigation": "Main navigation",
+    "english": "English",
+    "french": "French",
+    "treatments": "Treatments",
+    "approach": "Our approach",
+    "howItWorks": "How it works",
+    "admin": "Admin",
+    "therapist": "Therapist",
+    "myCare": "My care",
+    "language": "Choose language",
+    "signIn": "Sign in",
+    "signOut": "Sign out"
+  },
+  "footer": {
+    "note": "Thoughtful care for the way you feel.",
+    "backToTop": "Back to top",
+    "motto": "Care, at your pace."
+  },
+  "services": {
+    "BUCCAL_MASSAGE": "Buccal Massage",
+    "LYMPHATIC_DRAINAGE": "Lymphatic Massage",
+    "SPORTS_MASSAGE": "Sports Massage",
+    "SPECIAL_MASSAGE": "Special Massage",
+    "THAI_MASSAGE": "Thai Massage"
+  },
+  "home": {
+    "documentTitle": "Clinic Booking | Massage therapy and wellness",
+    "eyebrow": "Massage therapy · bodywork · wellness",
+    "heroTitle": "Come back to",
+    "heroTitleEmphasis": "feeling good.",
+    "heroIntro": "A quieter space to release tension, restore balance, and reconnect with your body. Your care begins with a conversation.",
+    "bookSession": "Book a session",
+    "exploreTreatments": "Explore treatments",
+    "heroNote": "Care shaped around you, never one-size-fits-all.",
+    "roomAlt": "A calm, sunlit treatment room in warm natural colors",
+    "artTitle": "A moment for you",
+    "artSubtitle": "Thoughtful care, from the first hello.",
+    "artCaption": "A softer pace starts here",
+    "approachLabel": "Our approach to care",
+    "pillars": {
+      "personal": {"title": "Personal attention", "text": "Your goals guide every session."},
+      "reset": {"title": "Room to reset", "text": "A welcoming space to slow down."},
+      "continued": {"title": "Care that continues", "text": "Support for how you feel day to day."}
+    },
+    "treatments": {
+      "eyebrow": "Find your way to unwind",
+      "title": "Care that meets you",
+      "titleEmphasis": "where you are.",
+      "intro": "Every body is different. We’ll take time to understand what you need and shape a treatment around your comfort and goals.",
+      "cards": {
+        "therapeutic": {"title": "Therapeutic massage", "text": "Focused, considered bodywork to ease tension and support the way you move.", "action": "Explore therapeutic massage and book a session"},
+        "restorative": {"title": "Restorative relaxation", "text": "A calming treatment designed to help you settle, soften, and take a full breath.", "action": "Explore restorative relaxation and book a session"},
+        "specialized": {"title": "Specialized bodywork", "text": "Intentional techniques tailored to your preferences, comfort, and care plan.", "action": "Explore specialized bodywork and book a session"}
+      }
+    },
+    "exploreCare": "Explore care",
+    "approach": {
+      "eyebrow": "A more human kind of care",
+      "title": "Listen first.",
+      "titleEmphasis": "Work together.",
+      "artLead": "Breathe in",
+      "artEmphasis": "make space",
+      "intro": "Feeling at ease matters. We’ll talk through your needs, explain your options, and make sure you feel comfortable at every step.",
+      "points": {"conversation": "A thoughtful conversation before treatment", "choices": "Clear choices and pressure that feels right", "space": "A calm, respectful space to take your time"},
+      "link": "Get to know our approach"
+    },
+    "steps": {
+      "eyebrow": "Simple from the start",
+      "title": "Your next step",
+      "titleEmphasis": "can be a small one.",
+      "action": "Find a time that works",
+      "items": {
+        "share": {"title": "Tell us what you need", "text": "Share what’s bringing you in and what would help you feel comfortable."},
+        "choose": {"title": "Choose a time", "text": "Browse available sessions and select an appointment that fits your schedule."},
+        "arrive": {"title": "Arrive as you are", "text": "We’ll meet you where you are and adjust your care together."}
+      }
+    },
+    "closing": {"eyebrow": "Make time for yourself", "title": "A little care can", "titleEmphasis": "go a long way.", "action": "Book your visit"}
+  },
+  "availability": {
+    "documentTitle": "Offer availability | Clinic Booking",
+    "eyebrow": "Your schedule",
+    "title": "Offer time for care",
+    "intro": "Set one day or a repeating weekly schedule. Add as many time periods as you need and choose the services you offer.",
+    "cardTitle": "New availability",
+    "cardIntro": "Each time period becomes its own pending calendar slot.",
+    "modeLegend": "How would you like to add availability?",
+    "single": {"title": "One day", "description": "Add one or more periods to a specific date."},
+    "weekly": {"title": "Repeat weekly", "description": "Choose weekdays and a date range."},
+    "date": "Date",
+    "repeatFrom": "Repeat from",
+    "repeatThrough": "Repeat through",
+    "daysOfWeek": "Days of the week",
+    "periodsTitle": "Daily time periods",
+    "periodNumber": "Period {{number}}",
+    "periodAdded": "Time period added. There are now {{count}} periods.",
+    "periodRemoved": "Time period removed. There are now {{count}} periods.",
+    "periodsDescription": "Add separate windows when you’re available.",
+    "from": "From",
+    "to": "to",
+    "until": "Until",
+    "remove": "Remove",
+    "removePeriod": "Remove period",
+    "addPeriod": "Add another time period",
+    "services": "Services available",
+    "servicesHelp": "Choose every service you’re comfortable offering during these times.",
+    "preview": {
+      "singleTime": "{{count}} time will be created",
+      "multipleTimes": "{{count}} times will be created",
+      "firstDates": "First dates:",
+      "date": "Date:",
+      "andMore": "and more",
+      "singlePeriodPerDay": "{{count}} period per day",
+      "multiplePeriodsPerDay": "{{count}} periods per day",
+      "empty": "Select dates and days to see a preview."
+    },
+    "pendingNote": "New availability appears as pending until reviewed.",
+    "submitting": "Submitting…",
+    "submit": "Submit availability",
+    "successSingle": "{{count}} availability time submitted for review.",
+    "successMultiple": "{{count}} availability times submitted for review.",
+    "errors": {
+      "chooseWeekday": "Choose at least one day of the week.",
+      "chooseDate": "Choose a date for your availability.",
+      "dateRange": "Choose a valid date range.",
+      "chooseService": "Choose at least one service.",
+      "invalidPeriod": "Each time period needs a valid start and an end time after it.",
+      "overlap": "Time periods on the same day cannot overlap.",
+      "save": "Availability could not be submitted. Please try again."
     }
   },
   "therapist": {
-    "dashboard": {
-      "title": "Therapist Dashboard"
+    "nav": {
+      "title": "Therapist", "subtitle": "Care workspace", "clinic": "YOUR CLINIC", "ariaLabel": "Therapist workspace",
+      "calendar": "Calendar", "availability": "Submit availability", "noteTitle": "Make space for good care.", "noteText": "Review your schedule and submitted availability here."
     },
-    "add-timeslot": {
-      "title": "Add Time-slots"
-    }
+    "dashboard": {"title": "Therapist Dashboard"}
   },
-  "client": {
-    "dashboard": {
-      "title": "Client Dashboard"
-    }
-  }
+  "calendar": {
+    "documentTitle": "Therapist calendar | Clinic Booking",
+    "eyebrow": "Availability", "title": "Timeslot calendar", "subtitle": "Review submitted timeslots and update the ones awaiting approval.",
+    "monthControls": "Calendar month controls", "previousMonth": "Previous month", "nextMonth": "Next month", "legend": "Calendar event legend", "scrollHint": "Calendar. Scroll horizontally to view all days of the week.",
+    "status": {"pending": "Pending", "approved": "Approved", "denied": "Denied", "label": "Status"},
+    "appointment": "Customer appointment", "loading": "Loading timeslots…", "slotAt": "timeslot at", "appointmentWith": "Customer appointment with", "patient": "patient", "at": "at",
+    "empty": "No timeslots or customer appointments yet.", "timeslotDetails": "Timeslot details", "time": "Time", "services": "Services", "duration": "Duration", "minutes": "{{count}} minutes",
+    "updatePending": "Update pending timeslot", "startTime": "Start time", "endTime": "End time", "date": "Date", "patientAppointment": "Patient appointment", "patientEmail": "Patient email", "age": "Age", "gender": "Gender", "service": "Service", "reason": "Reason for appointment",
+    "errors": {"appointments": "Timeslots loaded, but customer appointments could not be loaded.", "load": "Unable to load timeslots. Please refresh to try again.", "endAfterStart": "End time must be later than start time.", "update": "Timeslot could not be updated. Only your pending timeslots can be changed."}
+  },
+  "admin": {"dashboard": {"title": "Admin Dashboard", "documentTitle": "Admin dashboard | Clinic Booking"}},
+  "manager": {"dashboard": {"title": "Manager Dashboard"}},
+  "client": {"dashboard": {"title": "Client Dashboard", "documentTitle": "Client dashboard | Clinic Booking"}, "books": {"by": "by", "empty": "No books found.", "loading": "Loading books…"}}
 }
