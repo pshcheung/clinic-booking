@@ -24,6 +24,18 @@ public class AppointmentBookingService {
         timeSlotRepository.saveAll(timSlots);
     }
 
+    public List<Appointments> findPatientByDoctorName(String doctorName) {
+        return appointmentsRepository.findByDoctorname(doctorName);
+    }
+
+    public List<Appointments> findPatientByDoctorNames(List<String> doctorNames) {
+        return appointmentsRepository.findByDoctornameIn(doctorNames);
+    }
+
+    public Appointments addNewAppointment(Appointments appointment) {
+        return appointmentsRepository.save(appointment);
+    }
+
 /*    public List<TimeSlot> getSlotDetails(String email) {
         return timeSlotRepository.findByEmail(email);
     }

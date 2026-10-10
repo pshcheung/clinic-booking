@@ -107,12 +107,29 @@ public class TherapistController {
         return new ResponseEntity<>(therapistService.getTimeSlots(jwtToken), HttpStatus.OK);
     }
 
+    @GetMapping("/appointments")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
+    public ResponseEntity<List<Appointments>> getAppointments(@AuthenticationPrincipal Jwt jwtToken) {
+        return ResponseEntity.ok(therapistService.getAppointments(jwtToken));
+    }
+
     @PostMapping("/timeslots")
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
-    public String addTimeslots(@RequestBody List<TimeSlot> timeSlots) throws Exception {
-        therapistService.saveTimeSlots(timeSlots);
+    public String addTimeslots(@RequestBody List<TimeSlot> timeSlots,
+                               @AuthenticationPrincipal Jwt jwtToken) throws Exception {
+        therapistService.saveTimeSlots(timeSlots, jwtToken);
         return "modified successfully !!!";
+    }
+
+    @PutMapping("/timeslots/{id}")
+    @CrossOrigin(origins = "http://localhost:4200")
+    @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
+    public ResponseEntity<TimeSlot> updateTimeslot(@PathVariable String id,
+                                                    @RequestBody TimeSlot changes,
+                                                    @AuthenticationPrincipal Jwt jwtToken) {
+        return ResponseEntity.ok(therapistService.updatePendingTimeSlot(id, changes, jwtToken));
     }
 
 /*    @GetMapping("/doctorlistbyemail/{email}")

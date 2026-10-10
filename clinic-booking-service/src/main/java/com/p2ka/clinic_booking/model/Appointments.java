@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.springframework.data.mongodb.core.mapping.Document;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -21,6 +22,8 @@ public class Appointments {
     private String doctorname;
     private String specialization;
     private String date;
+    private LocalDateTime startDateTime;
+    private LocalDateTime endDateTime;
     private String age;
     private String gender;
     private String problem;

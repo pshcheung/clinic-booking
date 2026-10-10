@@ -16,13 +16,13 @@ public interface TherapistMapper {
     Therapist jwtToTherapist(Jwt jwtToken);
 
     default String getSubject(Jwt jwtToken) {
-        return jwtToken.getClaimAsString("subject");
+        return jwtToken.getSubject();
     }
     default String getEmail(Jwt jwtToken) {
         return jwtToken.getClaimAsString("email");
     }
     default String getGivenName(Jwt jwtToken) {
-        return jwtToken.getClaimAsString("given_nam");
+        return jwtToken.getClaimAsString("given_name");
     }
     default String getFamilyName(Jwt jwtToken) {
         return jwtToken.getClaimAsString("family_name");

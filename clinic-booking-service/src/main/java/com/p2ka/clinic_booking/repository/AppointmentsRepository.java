@@ -11,6 +11,7 @@ public interface AppointmentsRepository extends MongoRepository<Appointments, In
     List<Appointments> findBySlot(String slot);
 
     List<Appointments> findByDoctorname(String doctorname);
+    List<Appointments> findByDoctornameIn(List<String> doctorNames);
 
 /*    void updateAmstatus(String doctorname, String date);
 

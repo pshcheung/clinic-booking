@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @RestController
 public class UserController {
@@ -98,57 +99,33 @@ public class UserController {
 
     @PostMapping("/bookNewAppointment")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) throws Exception {
-        String[] dateArr = appointment.getDate().split("-");
-        appointment.setDate(dateArr[0] + "-" + dateArr[1] + "-" + dateArr[2]);
-        System.out.println(appointment.getDate());
-        Appointments appointments = appointment;
-
-//        List<TimeSlot> availableSLots = appointmentBookingService.getSlotList();
-        List<TimeSlot> availableSLots = null;
-        List<String> dates = new ArrayList<>();
-        String message = "No slots available !!! Please check the slot availability and book again.";
-/*        for (TimeSlot obj : availableSLots) {
-            dates.add(obj.getDate());
+    public ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) {
+        if (appointment.getPatientname() == null || appointment.getPatientname().isBlank()
+                || appointment.getDoctorname() == null || appointment.getDoctorname().isBlank()
+                || ((appointment.getDate() == null || appointment.getDate().isBlank())
+                && appointment.getStartDateTime() == null)) {
+            return ResponseEntity.badRequest().build();
         }
-        if (!dates.contains(appointments.getDate())) {
-            throw new Exception("No slots available for this date !!! Please check the slot availability and book again.");
+        if (appointment.getStartDateTime() != null && appointment.getEndDateTime() != null
+                && !appointment.getEndDateTime().isAfter(appointment.getStartDateTime())) {
+            return ResponseEntity.badRequest().build();
         }
-        TimeSlot obj = new TimeSlot();
-        for (TimeSlot obj1 : availableSLots) {
-            if (obj1.getDoctorname().equals(appointments.getDoctorname()) && obj1.getDate().equals(appointments.getDate())) {
-                obj = obj1;
-                break;
-            }
+        if ((appointment.getDate() == null || appointment.getDate().isBlank())
+                && appointment.getStartDateTime() != null) {
+            appointment.setDate(appointment.getStartDateTime().toLocalDate().toString());
         }
-        if (obj.getDoctorname().equals(appointments.getDoctorname()) && obj.getDate().equals(appointments.getDate())) {
-            if (appointments.getSlot().equalsIgnoreCase("AM slot") && obj.getAmstatus().equalsIgnoreCase("booked")) {
-                throw new Exception(message);
-            }
-            if (appointments.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmslot().equalsIgnoreCase("booked")) {
-                throw new Exception(message);
-            }
-            if (appointments.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonslot().equalsIgnoreCase("booked")) {
-                throw new Exception(message);
-            }
-        } else {
-            throw new Exception("The Therapist have no slots on that date !!! Please check the slot availability and book again.");
+        if (appointment.getId() == 0) {
+            appointment.setId(ThreadLocalRandom.current().nextInt(1, Integer.MAX_VALUE));
         }
-        appointments = appointmentBookingService.addNewAppointment(appointment);
-
-        String patientID = getPatientID();
-        appointmentBookingService.updatePatientId(patientID, appointment.getDoctorname(), appointment.getPatientname(), appointment.getDate());
-
-        if (appointment.getSlot().equalsIgnoreCase("Pm slot") && obj.getPmstatus().equalsIgnoreCase("unbooked")) {
-            appointmentBookingService.bookPMSlot(appointment.getDoctorname(), appointment.getDate());
+        if (appointment.getPatientid() == null || appointment.getPatientid().isBlank()) {
+            appointment.setPatientid(getPatientID());
         }
-        if (appointment.getSlot().equalsIgnoreCase("Am slot") && obj.getAmstatus().equalsIgnoreCase("unbooked")) {
-            appointmentBookingService.bookAMSlot(appointment.getDoctorname(), appointment.getDate());
+        if (appointment.getAppointmentstatus() == null || appointment.getAppointmentstatus().isBlank()
+                || "false".equalsIgnoreCase(appointment.getAppointmentstatus())) {
+            appointment.setAppointmentstatus("PENDING");
         }
-        if (appointment.getSlot().equalsIgnoreCase("Noon slot") && obj.getNoonstatus().equalsIgnoreCase("unbooked")) {
-            appointmentBookingService.bookNoonSlot(appointment.getDoctorname(), appointment.getDate());
-        }*/
-        return new ResponseEntity<Appointments>(appointments, HttpStatus.OK);
+        Appointments saved = appointmentBookingService.addNewAppointment(appointment);
+        return new ResponseEntity<>(saved, HttpStatus.OK);
     }
 
     public String getPatientID() {
