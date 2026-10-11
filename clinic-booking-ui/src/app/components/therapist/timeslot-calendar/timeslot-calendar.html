@@ -73,14 +73,14 @@
           <button type="button" class="primary-button" (click)="beginEdit()">{{ 'calendar.updatePending' | translate }}</button>
         }
       } @else {
-        <div class="edit-fields">
-          <label>{{ 'calendar.startTime' | translate }} <input type="datetime-local" [(ngModel)]="editStart"></label>
-          <label>{{ 'calendar.endTime' | translate }} <input type="datetime-local" [(ngModel)]="editEnd"></label>
-        </div>
-        <div class="dialog-actions">
-          <button type="button" class="secondary-button" (click)="editing.set(false)">{{ 'common.cancel' | translate }}</button>
-          <button type="button" class="primary-button" [disabled]="saving()" (click)="saveEdit()">{{ (saving() ? 'common.saving' : 'common.saveChanges') | translate }}</button>
-        </div>
+        <form class="edit-fields" [formRoot]="editForm">
+          <label>{{ 'calendar.startTime' | translate }} <input type="datetime-local" [formField]="editForm.start"></label>
+          <label>{{ 'calendar.endTime' | translate }} <input type="datetime-local" [formField]="editForm.end"></label>
+          <div class="dialog-actions">
+            <button type="button" class="secondary-button" (click)="editing.set(false)">{{ 'common.cancel' | translate }}</button>
+            <button type="submit" class="primary-button" [disabled]="saving()">{{ (saving() ? 'common.saving' : 'common.saveChanges') | translate }}</button>
+          </div>
+        </form>
       }
     </section>
   </div>

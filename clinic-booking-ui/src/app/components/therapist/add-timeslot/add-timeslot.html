@@ -11,36 +11,36 @@
       <div><h2>{{ 'availability.cardTitle' | translate }}</h2><p>{{ 'availability.cardIntro' | translate }}</p></div>
     </div>
 
-    <form class="availability-form" (ngSubmit)="onSubmit()">
+    <form class="availability-form" [formRoot]="scheduleForm">
       <fieldset class="mode-picker field-full">
         <legend>{{ 'availability.modeLegend' | translate }}</legend>
-        <button type="button" class="mode-option" [class.selected]="mode === 'single'" [attr.aria-pressed]="mode === 'single'" (click)="setMode('single')">
+        <button type="button" class="mode-option" [class.selected]="mode() === 'single'" [attr.aria-pressed]="mode() === 'single'" (click)="setMode('single')">
           <span class="mode-mark" aria-hidden="true">◷</span><span><strong>{{ 'availability.single.title' | translate }}</strong><small>{{ 'availability.single.description' | translate }}</small></span>
         </button>
-        <button type="button" class="mode-option" [class.selected]="mode === 'weekly'" [attr.aria-pressed]="mode === 'weekly'" (click)="setMode('weekly')">
+        <button type="button" class="mode-option" [class.selected]="mode() === 'weekly'" [attr.aria-pressed]="mode() === 'weekly'" (click)="setMode('weekly')">
           <span class="mode-mark" aria-hidden="true">↻</span><span><strong>{{ 'availability.weekly.title' | translate }}</strong><small>{{ 'availability.weekly.description' | translate }}</small></span>
         </button>
       </fieldset>
 
-      @if (mode === 'single') {
+      @if (mode() === 'single') {
         <div class="field-row field-full">
           <label for="single-date">{{ 'availability.date' | translate }}</label>
-          <input id="single-date" type="date" name="singleDate" [(ngModel)]="singleDate" required />
+          <input id="single-date" type="date" [formField]="scheduleForm.singleDate" />
         </div>
       } @else {
         <div class="field-row">
           <label for="start-date">{{ 'availability.repeatFrom' | translate }}</label>
-          <input id="start-date" type="date" name="startDate" [(ngModel)]="startDate" required />
+          <input id="start-date" type="date" [formField]="scheduleForm.startDate" />
         </div>
         <div class="field-row">
           <label for="end-date">{{ 'availability.repeatThrough' | translate }}</label>
-          <input id="end-date" type="date" name="endDate" [(ngModel)]="endDate" required />
+          <input id="end-date" type="date" [formField]="scheduleForm.endDate" />
         </div>
         <fieldset class="weekday-picker field-full">
           <legend>{{ 'availability.daysOfWeek' | translate }}</legend>
           <div class="weekday-options">
-            @for (day of weekdays; track day.value) {
-              <button type="button" [class.selected]="selectedWeekdays.includes(day.value)" [attr.aria-pressed]="selectedWeekdays.includes(day.value)" [attr.aria-label]="('common.weekdays.full.' + day.value) | translate" (click)="toggleWeekday(day.value)">{{ ('common.weekdays.short.' + day.value) | translate }}</button>
+          @for (day of weekdays; track day.value) {
+              <button type="button" [class.selected]="selectedWeekdays().includes(day.value)" [attr.aria-pressed]="selectedWeekdays().includes(day.value)" [attr.aria-label]="('common.weekdays.full.' + day.value) | translate" (click)="toggleWeekday(day.value)">{{ ('common.weekdays.short.' + day.value) | translate }}</button>
             }
           </div>
         </fieldset>
@@ -53,9 +53,9 @@
             <fieldset class="period-row">
               <legend class="visually-hidden">{{ 'availability.periodNumber' | translate: {number: index + 1} }}</legend>
               <span class="period-number">{{ index + 1 }}</span>
-              <div class="time-field"><label [for]="'period-start-' + period.id">{{ 'availability.from' | translate }}</label><input [id]="'period-start-' + period.id" type="time" [name]="'period-start-' + period.id" [ngModel]="period.start" (ngModelChange)="updatePeriod(period.id, 'start', $event)" required /></div>
+              <div class="time-field"><label [for]="'period-start-' + period.id">{{ 'availability.from' | translate }}</label><input [id]="'period-start-' + period.id" type="time" [formField]="scheduleForm.periods[index].start" /></div>
               <span class="time-separator" aria-hidden="true">{{ 'availability.to' | translate }}</span>
-              <div class="time-field"><label [for]="'period-end-' + period.id">{{ 'availability.until' | translate }}</label><input [id]="'period-end-' + period.id" type="time" [name]="'period-end-' + period.id" [ngModel]="period.end" (ngModelChange)="updatePeriod(period.id, 'end', $event)" required /></div>
+              <div class="time-field"><label [for]="'period-end-' + period.id">{{ 'availability.until' | translate }}</label><input [id]="'period-end-' + period.id" type="time" [formField]="scheduleForm.periods[index].end" /></div>
               <button type="button" class="remove-period" [disabled]="periods.length === 1" [attr.aria-label]="('availability.removePeriod' | translate) + ' ' + (index + 1)" (click)="removePeriod(period.id)">{{ 'availability.remove' | translate }}</button>
             </fieldset>
           }
@@ -68,7 +68,7 @@
         <legend class="field-label">{{ 'availability.services' | translate }}</legend>
         <div id="services" class="service-options">
           @for (service of serviceTypes; track service.id) {
-            <button type="button" class="service-option" [class.selected]="selectedServices.some(selected => selected.id === service.id)" [attr.aria-pressed]="selectedServices.some(selected => selected.id === service.id)" (click)="toggleService(service)"><span class="service-check" aria-hidden="true">{{ selectedServices.some(selected => selected.id === service.id) ? '✓' : '+' }}</span>{{ ('services.' + service.id) | translate }}</button>
+            <button type="button" class="service-option" [class.selected]="selectedServices().some(selected => selected.id === service.id)" [attr.aria-pressed]="selectedServices().some(selected => selected.id === service.id)" (click)="toggleService(service)"><span class="service-check" aria-hidden="true">{{ selectedServices().some(selected => selected.id === service.id) ? '✓' : '+' }}</span>{{ ('services.' + service.id) | translate }}</button>
           }
         </div>
         <small id="service-description">{{ 'availability.servicesHelp' | translate }}</small>
@@ -77,17 +77,17 @@
       <aside class="schedule-preview field-full" aria-live="polite">
         <span class="preview-icon" aria-hidden="true">▦</span>
         <div><strong>{{ (slotCount === 1 ? 'availability.preview.singleTime' : 'availability.preview.multipleTimes') | translate: {count: slotCount} }}</strong>
-          @if (previewDates.length) { <p>{{ (mode === 'weekly' ? 'availability.preview.firstDates' : 'availability.preview.date') | translate }} @for (date of previewDates; track date.getTime(); let last = $last) { {{ formatDate(date) }}{{ last ? '' : ', ' }} } @if (mode === 'weekly' && slotCount > periods.length * previewDates.length) { {{ 'availability.preview.andMore' | translate }} } · {{ (periods.length === 1 ? 'availability.preview.singlePeriodPerDay' : 'availability.preview.multiplePeriodsPerDay') | translate: {count: periods.length} }}</p> }
+          @if (previewDates.length) { <p>{{ (mode() === 'weekly' ? 'availability.preview.firstDates' : 'availability.preview.date') | translate }} @for (date of previewDates; track date.getTime(); let last = $last) { {{ formatDate(date) }}{{ last ? '' : ', ' }} } @if (mode() === 'weekly' && slotCount > periods.length * previewDates.length) { {{ 'availability.preview.andMore' | translate }} } · {{ (periods.length === 1 ? 'availability.preview.singlePeriodPerDay' : 'availability.preview.multiplePeriodsPerDay') | translate: {count: periods.length} }}</p> }
           @else { <p>{{ 'availability.preview.empty' | translate }}</p> }
         </div>
       </aside>
 
       <div class="form-footer field-full">
         <p><span aria-hidden="true">ⓘ</span> {{ 'availability.pendingNote' | translate }}</p>
-        <button type="submit" class="submit-button" [disabled]="saving">{{ (saving ? 'availability.submitting' : 'availability.submit') | translate }} <span aria-hidden="true">→</span></button>
+        <button type="submit" class="submit-button" [disabled]="saving()">{{ (saving() ? 'availability.submitting' : 'availability.submit') | translate }} <span aria-hidden="true">→</span></button>
       </div>
     </form>
-    @if (saveError) { <p class="form-error" role="alert">{{ saveError | translate }}</p> }
-    @if (successMessage) { <p class="form-success" role="status">{{ (successCount === 1 ? 'availability.successSingle' : 'availability.successMultiple') | translate: {count: successCount} }}</p> }
+    @if (saveError()) { <p class="form-error" role="alert">{{ saveError() | translate }}</p> }
+    @if (successMessage()) { <p class="form-success" role="status">{{ (successCount() === 1 ? 'availability.successSingle' : 'availability.successMultiple') | translate: {count: successCount()} }}</p> }
   </section>
 </section>

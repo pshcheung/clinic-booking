@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {Component, inject, signal} from '@angular/core';
+import {applyEach, form, FormField, FormRoot, required} from '@angular/forms/signals';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageService} from '../../../services/language.service';
 import {ServiceType} from '../../../models/service-type';
@@ -9,11 +9,17 @@ import {TimeslotStore} from '../../../stores/timeslot-store';
 type ScheduleMode = 'single' | 'weekly';
 interface TimePeriod { id: number; start: string; end: string; }
 interface DayChoice { value: number; }
+interface ScheduleFormModel {
+  singleDate: string;
+  startDate: string;
+  endDate: string;
+  periods: TimePeriod[];
+}
 
 @Component({
   standalone: true,
   selector: 'app-add-timeslot',
-  imports: [FormsModule, TranslatePipe],
+  imports: [FormField, FormRoot, TranslatePipe],
   templateUrl: './add-timeslot.html',
   styleUrl: './add-timeslot.scss',
 })
@@ -36,39 +42,51 @@ export class AddTimeslot {
     {value: 0}, {value: 1}, {value: 2}, {value: 3}, {value: 4}, {value: 5}, {value: 6},
   ];
 
-  mode: ScheduleMode = 'single';
-  singleDate = this.todayString();
-  startDate = this.todayString();
-  endDate = this.todayString();
-  selectedWeekdays = [1, 2, 3, 4, 5];
-  selectedServices: ServiceType[] = [];
-  periods: TimePeriod[] = [{id: 1, start: '09:00', end: '10:00'}];
-  saving = false;
-  saveError = '';
-  successMessage = '';
-  successCount = 0;
+  readonly mode = signal<ScheduleMode>('single');
+  readonly selectedWeekdays = signal([1, 2, 3, 4, 5]);
+  readonly selectedServices = signal<ServiceType[]>([]);
+  readonly scheduleModel = signal<ScheduleFormModel>({
+    singleDate: this.todayString(),
+    startDate: this.todayString(),
+    endDate: this.todayString(),
+    periods: [{id: 1, start: '09:00', end: '10:00'}],
+  });
+  readonly scheduleForm = form(this.scheduleModel, path => {
+    required(path.singleDate);
+    required(path.startDate);
+    required(path.endDate);
+    applyEach(path.periods, period => {
+      required(period.start);
+      required(period.end);
+    });
+  }, {submission: {action: async () => { this.onSubmit(); }}});
+  readonly saving = signal(false);
+  readonly saveError = signal('');
+  readonly successMessage = signal('');
+  readonly successCount = signal(0);
   periodAnnouncement = '';
   periodAnnouncementCount = 0;
   private nextPeriodId = 2;
 
   setMode(mode: ScheduleMode): void {
-    this.mode = mode;
-    this.saveError = '';
-    this.successMessage = '';
+    this.mode.set(mode);
+    this.saveError.set('');
+    this.successMessage.set('');
   }
 
   addPeriod(): void {
-    const previous = this.periods.at(-1);
+    const periods = this.scheduleModel().periods;
+    const previous = periods.at(-1);
     const id = this.nextPeriodId++;
-    this.periods = [...this.periods, {id, start: previous?.end ?? '09:00', end: this.addHour(previous?.end ?? '09:00')}];
+    this.scheduleModel.update(model => ({...model, periods: [...model.periods, {id, start: previous?.end ?? '09:00', end: this.addHour(previous?.end ?? '09:00')}]}));
     this.periodAnnouncement = 'availability.periodAdded';
     this.periodAnnouncementCount = this.periods.length;
     setTimeout(() => document.getElementById(`period-start-${id}`)?.focus());
   }
 
   removePeriod(id: number): void {
-    if (this.periods.length > 1) {
-      this.periods = this.periods.filter(period => period.id !== id);
+    if (this.scheduleModel().periods.length > 1) {
+      this.scheduleModel.update(model => ({...model, periods: model.periods.filter(period => period.id !== id)}));
       this.periodAnnouncement = 'availability.periodRemoved';
       this.periodAnnouncementCount = this.periods.length;
       setTimeout(() => document.getElementById('add-period-button')?.focus());
@@ -76,21 +94,18 @@ export class AddTimeslot {
   }
 
   toggleWeekday(day: number): void {
-    this.selectedWeekdays = this.selectedWeekdays.includes(day)
-      ? this.selectedWeekdays.filter(value => value !== day)
-      : [...this.selectedWeekdays, day].sort((a, b) => a - b);
+    this.selectedWeekdays.update(days => days.includes(day)
+      ? days.filter(value => value !== day)
+      : [...days, day].sort((a, b) => a - b));
   }
 
   toggleService(service: ServiceType): void {
-    this.selectedServices = this.selectedServices.some(selected => selected.id === service.id)
-      ? this.selectedServices.filter(selected => selected.id !== service.id)
-      : [...this.selectedServices, service];
+    this.selectedServices.update(services => services.some(selected => selected.id === service.id)
+      ? services.filter(selected => selected.id !== service.id)
+      : [...services, service]);
   }
 
-  updatePeriod(id: number, field: 'start' | 'end', value: string): void {
-    this.periods = this.periods.map(period => period.id === id ? {...period, [field]: value} : period);
-    this.saveError = '';
-  }
+  get periods(): TimePeriod[] { return this.scheduleModel().periods; }
 
   get previewDates(): Date[] {
     return this.scheduledDates().slice(0, 3);
@@ -105,78 +120,83 @@ export class AddTimeslot {
   }
 
   onSubmit(): void {
-    if (this.saving) return;
-    this.saveError = '';
-    this.successMessage = '';
+    if (this.saving()) return;
+    this.saveError.set('');
+    this.successMessage.set('');
     const slots = this.buildSlots();
     if (!slots) return;
 
-    this.saving = true;
+    this.saving.set(true);
     this.timeslotStore.submitTimeslots(slots).subscribe({
       next: () => {
-        this.successMessage = 'availability.success';
-        this.successCount = slots.length;
-        this.selectedServices = [];
-        this.periods = [{id: this.nextPeriodId++, start: '09:00', end: '10:00'}];
-        this.saving = false;
+        this.successMessage.set('availability.success');
+        this.successCount.set(slots.length);
+        this.selectedServices.set([]);
+        this.scheduleModel.update(model => ({...model, periods: [{id: this.nextPeriodId++, start: '09:00', end: '10:00'}]}));
+        this.saving.set(false);
       },
       error: () => {
-        this.saveError = 'availability.errors.save';
-        this.saving = false;
+        this.saveError.set('availability.errors.save');
+        this.saving.set(false);
       },
     });
   }
 
   private buildSlots(): TimeSlot[] | null {
     const dates = this.scheduledDates();
-    if (this.mode === 'weekly' && this.selectedWeekdays.length === 0) {
-      this.saveError = 'availability.errors.chooseWeekday';
+    const model = this.scheduleModel();
+    const weekdays = this.selectedWeekdays();
+    const services = this.selectedServices();
+    const periods = model.periods;
+    if (this.mode() === 'weekly' && weekdays.length === 0) {
+      this.saveError.set('availability.errors.chooseWeekday');
       return null;
     }
     if (dates.length === 0) {
-      this.saveError = this.mode === 'single' ? 'availability.errors.chooseDate' : 'availability.errors.dateRange';
+      this.saveError.set(this.mode() === 'single' ? 'availability.errors.chooseDate' : 'availability.errors.dateRange');
       return null;
     }
-    if (this.selectedServices.length === 0) {
-      this.saveError = 'availability.errors.chooseService';
+    if (services.length === 0) {
+      this.saveError.set('availability.errors.chooseService');
       return null;
     }
-    if (this.periods.some(period => {
+    if (periods.some(period => {
       const start = this.toMinutes(period.start);
       const end = this.toMinutes(period.end);
       return start === null || end === null || start >= end;
     })) {
-      this.saveError = 'availability.errors.invalidPeriod';
+      this.saveError.set('availability.errors.invalidPeriod');
       return null;
     }
-    const sorted = [...this.periods].sort((a, b) => this.toMinutes(a.start)! - this.toMinutes(b.start)!);
+    const sorted = [...periods].sort((a, b) => this.toMinutes(a.start)! - this.toMinutes(b.start)!);
     if (sorted.some((period, index) => index > 0 && this.toMinutes(period.start)! < this.toMinutes(sorted[index - 1].end)!)) {
-      this.saveError = 'availability.errors.overlap';
+      this.saveError.set('availability.errors.overlap');
       return null;
     }
 
-    return dates.flatMap(date => this.periods.map(period => {
+    return dates.flatMap(date => periods.map(period => {
       const slot = new TimeSlot();
       slot.startDateTime = this.dateAtTime(date, period.start);
       slot.endDateTime = this.dateAtTime(date, period.end);
-      slot.servicesToProvide = this.selectedServices.map(service => ({...service}));
+      slot.servicesToProvide = services.map(service => ({...service}));
       slot.status = TimeSlotStatus.PROPOSED;
       return slot;
     }));
   }
 
   private scheduledDates(): Date[] {
-    if (this.mode === 'single') {
-      const date = this.parseDate(this.singleDate);
+    const model = this.scheduleModel();
+    if (this.mode() === 'single') {
+      const date = this.parseDate(model.singleDate);
       return date ? [date] : [];
     }
-    const start = this.parseDate(this.startDate);
-    const end = this.parseDate(this.endDate);
+    const start = this.parseDate(model.startDate);
+    const end = this.parseDate(model.endDate);
     if (!start || !end || end < start) return [];
     const result: Date[] = [];
     const date = new Date(start);
     while (date <= end) {
-      if (this.selectedWeekdays.includes(date.getDay())) result.push(new Date(date));
+      if (this.selectedWeekdays().includes(date.getDay())) result.push(new Date(date));
       date.setDate(date.getDate() + 1);
     }
     return result;

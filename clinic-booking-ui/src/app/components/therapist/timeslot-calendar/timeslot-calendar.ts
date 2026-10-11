@@ -1,6 +1,6 @@
 import {DatePipe, NgClass} from '@angular/common';
 import {Component, OnInit, inject, signal} from '@angular/core';
-import {FormsModule} from '@angular/forms';
+import {form, FormField, FormRoot, required} from '@angular/forms/signals';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageService} from '../../../services/language.service';
 import {CdkTrapFocus} from '@angular/cdk/a11y';
@@ -11,7 +11,7 @@ import {TimeslotStore} from '../../../stores/timeslot-store';
 @Component({
   standalone: true,
   selector: 'app-timeslot-calendar',
-  imports: [DatePipe, FormsModule, NgClass, TranslatePipe, CdkTrapFocus],
+  imports: [DatePipe, FormField, FormRoot, NgClass, TranslatePipe, CdkTrapFocus],
   templateUrl: './timeslot-calendar.html',
   styleUrl: './timeslot-calendar.scss',
 })
@@ -31,8 +31,11 @@ export class TimeslotCalendar implements OnInit {
   readonly error = signal('');
   readonly saving = this.timeslotStore.isSaving;
   readonly editing = signal(false);
-  editStart = '';
-  editEnd = '';
+  readonly editModel = signal({start: '', end: ''});
+  readonly editForm = form(this.editModel, path => {
+    required(path.start);
+    required(path.end);
+  }, {submission: {action: async () => { this.saveEdit(); }}});
 
   ngOnInit(): void {
     this.timeslotStore.loadCalendarData();
@@ -121,16 +124,19 @@ export class TimeslotCalendar implements OnInit {
   beginEdit(): void {
     const slot = this.selectedSlot();
     if (!slot || this.normalizeStatus(slot.status) !== TimeSlotStatus.PROPOSED) return;
-    this.editStart = this.toLocalInput(new Date(slot.startDateTime));
-    this.editEnd = this.toLocalInput(new Date(slot.endDateTime));
+    this.editModel.set({
+      start: this.toLocalInput(new Date(slot.startDateTime)),
+      end: this.toLocalInput(new Date(slot.endDateTime)),
+    });
     this.editing.set(true);
   }
 
   saveEdit(): void {
     const slot = this.selectedSlot();
-    if (!slot?.id || !this.editStart || !this.editEnd) return;
-    const startDateTime = new Date(this.editStart);
-    const endDateTime = new Date(this.editEnd);
+    const {start, end} = this.editModel();
+    if (!slot?.id || !start || !end) return;
+    const startDateTime = new Date(start);
+    const endDateTime = new Date(end);
     if (Number.isNaN(startDateTime.getTime()) || endDateTime <= startDateTime) {
       this.error.set('calendar.errors.endAfterStart');
       return;
