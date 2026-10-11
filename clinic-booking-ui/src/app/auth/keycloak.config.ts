@@ -7,10 +7,12 @@ import {
   AutoRefreshTokenService,
   UserActivityService
 } from 'keycloak-angular';
+import {environment} from '../../environments/environment';
 
-const localhostCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
-  urlPattern: /^http:\/\/localhost:\d+($|\/.*)/i,
-//  urlPattern: /^(http:\/\/localhost:8181)(\/.*)?$/i
+const apiBaseUrl = environment.apiURL.replace(/\/+$/, '');
+const escapedApiBaseUrl = apiBaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+const apiCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
+  urlPattern: new RegExp(`^${escapedApiBaseUrl}(?:/|$)`, 'i'),
 });
 
 export const provideKeycloakAngular = () =>
@@ -38,7 +40,7 @@ export const provideKeycloakAngular = () =>
       UserActivityService,
       {
         provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-        useValue: [localhostCondition]
+        useValue: [apiCondition]
       }
     ]
   });

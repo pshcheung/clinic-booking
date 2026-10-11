@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // Backend Spring Boot server port updated from 8080 -> 8081
-  apiURL:  "http://localhost:8081"
+  apiURL:  "http://localhost:8088"
 };
 
 /*

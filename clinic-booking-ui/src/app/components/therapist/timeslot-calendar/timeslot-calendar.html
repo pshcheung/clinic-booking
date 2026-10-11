@@ -19,7 +19,7 @@
     <span><i class="appointment-dot"></i>{{ 'calendar.appointment' | translate }}</span>
   </div>
 
-  @if (error()) { <p class="notice error" role="alert">{{ error() | translate }}</p> }
+  @if (error() || timeslotStore.error()) { <p class="notice error" role="alert">{{ (error() || timeslotStore.error()) | translate }}</p> }
   @if (loading()) { <p class="notice" role="status">{{ 'calendar.loading' | translate }}</p> }
   @if (!loading()) {
     <div class="calendar-scroll" role="region" tabindex="0" [attr.aria-label]="'calendar.scrollHint' | translate">

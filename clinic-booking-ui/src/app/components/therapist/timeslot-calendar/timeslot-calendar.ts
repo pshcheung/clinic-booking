@@ -6,7 +6,7 @@ import {LanguageService} from '../../../services/language.service';
 import {CdkTrapFocus} from '@angular/cdk/a11y';
 import {TimeSlot, TimeSlotStatus} from '../../../models/time-slot';
 import {Appointment} from '../../../models/appointment';
-import {TherapistService} from '../../../services/therapist.service';
+import {TimeslotStore} from '../../../stores/timeslot-store';
 
 @Component({
   standalone: true,
@@ -16,56 +16,26 @@ import {TherapistService} from '../../../services/therapist.service';
   styleUrl: './timeslot-calendar.scss',
 })
 export class TimeslotCalendar implements OnInit {
-  private readonly therapistService = inject(TherapistService);
+  protected readonly timeslotStore = inject(TimeslotStore);
   readonly languageService = inject(LanguageService);
 
   constructor() {
     this.languageService.setPageTitle('calendar.documentTitle');
   }
-  readonly slots = signal<TimeSlot[]>([]);
-  readonly appointments = signal<Appointment[]>([]);
+  readonly slots = this.timeslotStore.timeslots;
+  readonly appointments = this.timeslotStore.appointments;
   readonly month = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
   readonly selectedSlot = signal<TimeSlot | null>(null);
   readonly selectedAppointment = signal<Appointment | null>(null);
-  readonly loading = signal(true);
+  readonly loading = this.timeslotStore.isLoading;
   readonly error = signal('');
-  readonly saving = signal(false);
+  readonly saving = this.timeslotStore.isSaving;
   readonly editing = signal(false);
   editStart = '';
   editEnd = '';
 
   ngOnInit(): void {
-    this.loadSlots();
-  }
-
-  loadSlots(): void {
-    this.loading.set(true);
-    this.error.set('');
-    this.therapistService.getTimeSlots().subscribe({
-      next: (slots) => {
-        this.slots.set((slots ?? []).map(slot => ({
-          ...slot,
-          startDateTime: new Date(slot.startDateTime),
-          endDateTime: new Date(slot.endDateTime),
-          status: this.normalizeStatus(slot.status),
-        })));
-        this.therapistService.getAppointments().subscribe({
-          next: appointments => {
-            this.appointments.set((appointments ?? []).filter(appointment => this.appointmentDate(appointment) !== null));
-            this.loading.set(false);
-          },
-          error: () => {
-            this.appointments.set([]);
-            this.error.set('calendar.errors.appointments');
-            this.loading.set(false);
-          }
-        });
-      },
-      error: () => {
-        this.error.set('calendar.errors.load');
-        this.loading.set(false);
-      }
-    });
+    this.timeslotStore.loadCalendarData();
   }
 
   get monthLabel(): string {
@@ -165,19 +135,14 @@ export class TimeslotCalendar implements OnInit {
       this.error.set('calendar.errors.endAfterStart');
       return;
     }
-    this.saving.set(true);
     this.error.set('');
-    this.therapistService.updateTimeslot({...slot, startDateTime, endDateTime}).subscribe({
+    this.timeslotStore.updateTimeslot({...slot, startDateTime, endDateTime}).subscribe({
       next: updated => {
-        const normalized = {...updated, startDateTime: new Date(updated.startDateTime), endDateTime: new Date(updated.endDateTime)};
-        this.slots.update(items => items.map(item => item.id === normalized.id ? normalized : item));
-        this.selectedSlot.set(normalized);
+        this.selectedSlot.set(updated);
         this.editing.set(false);
-        this.saving.set(false);
       },
       error: () => {
         this.error.set('calendar.errors.update');
-        this.saving.set(false);
       }
     });
   }

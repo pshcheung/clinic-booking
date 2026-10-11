@@ -4,7 +4,6 @@ import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageService} from '../../../services/language.service';
 import {ServiceType} from '../../../models/service-type';
 import {TimeSlot, TimeSlotStatus} from '../../../models/time-slot';
-import {TherapistService} from '../../../services/therapist.service';
 import {TimeslotStore} from '../../../stores/timeslot-store';
 
 type ScheduleMode = 'single' | 'weekly';
@@ -20,7 +19,6 @@ interface DayChoice { value: number; }
 })
 export class AddTimeslot {
   protected readonly timeslotStore = inject(TimeslotStore);
-  private readonly therapistService = inject(TherapistService);
   private readonly languageService = inject(LanguageService);
 
   constructor() {
@@ -114,9 +112,8 @@ export class AddTimeslot {
     if (!slots) return;
 
     this.saving = true;
-    this.therapistService.submitTimeslots(slots).subscribe({
+    this.timeslotStore.submitTimeslots(slots).subscribe({
       next: () => {
-        this.timeslotStore.addTimeslots(slots);
         this.successMessage = 'availability.success';
         this.successCount = slots.length;
         this.selectedServices = [];
