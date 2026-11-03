@@ -1,10 +1,12 @@
 package com.p2ka.clinic_booking.controller;
 
+import com.p2ka.clinic_booking.dto.LookupPeriodParameter;
 import com.p2ka.clinic_booking.model.*;
-import com.p2ka.clinic_booking.service.AppointmentBookingService;
+import com.p2ka.clinic_booking.dto.TimeslotDto;
+import com.p2ka.clinic_booking.service.AppointmentService;
 import com.p2ka.clinic_booking.service.DoctorRegistrationService;
-import com.p2ka.clinic_booking.service.PrescriptionService;
 import com.p2ka.clinic_booking.service.TherapistService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +24,7 @@ public class TherapistController {
     private DoctorRegistrationService doctorRegisterService;
 
     @Autowired
-    private AppointmentBookingService appointmentBookingService;
+    private AppointmentService appointmentService;
 
     @Autowired
     private TherapistService therapistService;
@@ -46,7 +48,7 @@ public class TherapistController {
     @GetMapping("/gettotalslots")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Integer>> getTotalSlots() throws Exception {
-        List<TimeSlot> slots = appointmentBookingService.getSlotList();
+        List<Timeslot> slots = appointmentBookingService.getSlotList();
         List<Integer> al = new ArrayList<>();
         al.add(slots.size());
         return new ResponseEntity<List<Integer>>(al, HttpStatus.OK);
@@ -73,9 +75,9 @@ public class TherapistController {
     @GetMapping("/acceptpatient/{slot}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<String>> updatePatientStatus(@PathVariable String slot) throws Exception {
-        List<Appointments> patient = appointmentBookingService.findPatientBySlot(slot);
+        List<Appointment> patient = appointmentBookingService.findPatientBySlot(slot);
         String doctorName = "";
-        for (Appointments obj : patient) {
+        for (Appointment obj : patient) {
             if (obj.getSlot().equals(slot))
                 doctorName = obj.getDoctorname();
         }
@@ -88,9 +90,9 @@ public class TherapistController {
     @GetMapping("/rejectpatient/{slot}")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<String>> rejectPatientStatus(@PathVariable String slot) throws Exception {
-        List<Appointments> patient = appointmentBookingService.findPatientBySlot(slot);
+        List<Appointment> patient = appointmentBookingService.findPatientBySlot(slot);
         String doctorName = "";
-        for (Appointments obj : patient) {
+        for (Appointment obj : patient) {
             if (obj.getSlot().equals(slot))
                 doctorName = obj.getDoctorname();
         }
@@ -103,33 +105,37 @@ public class TherapistController {
     @GetMapping("/timeslots")
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
-    public ResponseEntity<List<TimeSlot>> getTimeslots(@AuthenticationPrincipal Jwt jwtToken) throws Exception {
-        return new ResponseEntity<>(therapistService.getTimeSlots(jwtToken), HttpStatus.OK);
+    public ResponseEntity<List<TimeslotDto>> getTimeslots(
+            @Valid @ModelAttribute("userForm") LookupPeriodParameter periodParameter,
+            @AuthenticationPrincipal Jwt jwtToken) {
+        return new ResponseEntity<>(therapistService.getTimeslots(jwtToken, periodParameter), HttpStatus.OK);
     }
 
     @GetMapping("/appointments")
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
-    public ResponseEntity<List<Appointments>> getAppointments(@AuthenticationPrincipal Jwt jwtToken) {
-        return ResponseEntity.ok(therapistService.getAppointments(jwtToken));
+    public ResponseEntity<List<Appointment>> getAppointments(
+            @Valid @ModelAttribute("userForm") LookupPeriodParameter periodParameter,
+            @AuthenticationPrincipal Jwt jwtToken) {
+        return ResponseEntity.ok(therapistService.getAppointments(jwtToken, periodParameter));
     }
 
     @PostMapping("/timeslots")
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
-    public String addTimeslots(@RequestBody List<TimeSlot> timeSlots,
-                               @AuthenticationPrincipal Jwt jwtToken) throws Exception {
-        therapistService.saveTimeSlots(timeSlots, jwtToken);
+    public String addTimeslots(@RequestBody List<TimeslotDto> timeslots,
+                               @AuthenticationPrincipal Jwt jwtToken) {
+        therapistService.saveTimeslots(timeslots, jwtToken);
         return "modified successfully !!!";
     }
 
     @PutMapping("/timeslots/{id}")
     @CrossOrigin(origins = "http://localhost:4200")
     @PreAuthorize("hasAnyRole('ROLE_clinic_therapist_role', 'ROLE_clinic_manager_role', 'ROLE_clinic_admin_role')")
-    public ResponseEntity<TimeSlot> updateTimeslot(@PathVariable String id,
-                                                    @RequestBody TimeSlot changes,
-                                                    @AuthenticationPrincipal Jwt jwtToken) {
-        return ResponseEntity.ok(therapistService.updatePendingTimeSlot(id, changes, jwtToken));
+    public ResponseEntity<Timeslot> updateTimeslot(@PathVariable String id,
+                                                   @RequestBody Timeslot changes,
+                                                   @AuthenticationPrincipal Jwt jwtToken) {
+        return ResponseEntity.ok(therapistService.updatePendingTimeslot(id, changes, jwtToken));
     }
 
 /*    @GetMapping("/doctorlistbyemail/{email}")
@@ -142,24 +148,24 @@ public class TherapistController {
 
     @GetMapping("/slotDetails/{email}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<TimeSlot>> getSlotDetails(@PathVariable String email) throws Exception {
-        List<TimeSlot> slots = appointmentBookingService.getSlotDetails(email);
-        return new ResponseEntity<List<TimeSlot>>(slots, HttpStatus.OK);
+    public ResponseEntity<List<Timeslot>> getSlotDetails(@PathVariable String email) throws Exception {
+        List<Timeslot> slots = appointmentBookingService.getSlotDetails(email);
+        return new ResponseEntity<List<Timeslot>>(slots, HttpStatus.OK);
     }
 
     @GetMapping("/slotDetails")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<TimeSlot>> getSlotList() throws Exception {
-        List<TimeSlot> slots = appointmentBookingService.getSlotList();
-        return new ResponseEntity<List<TimeSlot>>(slots, HttpStatus.OK);
+    public ResponseEntity<List<Timeslot>> getSlotList() throws Exception {
+        List<Timeslot> slots = appointmentBookingService.getSlotList();
+        return new ResponseEntity<List<Timeslot>>(slots, HttpStatus.OK);
     }
 
     @GetMapping("/slotDetailsWithUniqueDoctors")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Set<String>> getSlotDetailsWithUniqueDoctors() throws Exception {
-        List<TimeSlot> slots = appointmentBookingService.getSlotDetailsWithUniqueDoctors();
+        List<Timeslot> slots = appointmentBookingService.getSlotDetailsWithUniqueDoctors();
         Set<String> set = new LinkedHashSet<>();
-        for (TimeSlot obj : slots) {
+        for (Timeslot obj : slots) {
             set.add(obj.getDoctorname());
         }
         return new ResponseEntity<Set<String>>(set, HttpStatus.OK);
@@ -168,9 +174,9 @@ public class TherapistController {
     @GetMapping("/slotDetailsWithUniqueSpecializations")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Set<String>> getSlotDetailsWithUniqueSpecializations() throws Exception {
-        List<TimeSlot> slots = appointmentBookingService.getSlotDetailsWithUniqueSpecializations();
+        List<Timeslot> slots = appointmentBookingService.getSlotDetailsWithUniqueSpecializations();
         Set<String> set = new LinkedHashSet<>();
-        for (TimeSlot obj : slots) {
+        for (Timeslot obj : slots) {
             set.add(obj.getSpecialization());
         }
         return new ResponseEntity<Set<String>>(set, HttpStatus.OK);
@@ -178,7 +184,7 @@ public class TherapistController {
 
     @GetMapping("/patientlistbydoctoremail/{email}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<Appointments>> getPatientDetails(@PathVariable String email) throws Exception {
+    public ResponseEntity<List<Appointment>> getPatientDetails(@PathVariable String email) throws Exception {
         List<Therapist> history = doctorRegisterService.getDoctorListByEmail(email);
         String doctorname = "";
         for (Therapist obj : history) {
@@ -187,16 +193,16 @@ public class TherapistController {
                 break;
             }
         }
-        List<Appointments> patients = appointmentBookingService.findPatientByDoctorName(doctorname);
-        return new ResponseEntity<List<Appointments>>(patients, HttpStatus.OK);
+        List<Appointment> patients = appointmentBookingService.findPatientByDoctorName(doctorname);
+        return new ResponseEntity<List<Appointment>>(patients, HttpStatus.OK);
     }
 
     @PostMapping("/addPrescription")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<Prescription> addNewPrescription(@RequestBody Prescription prescription) throws Exception {
-        List<Appointments> patients = appointmentBookingService.getAllPatients();
+        List<Appointment> patients = appointmentBookingService.getAllPatients();
         String patientID = "";
-        for (Appointments obj : patients) {
+        for (Appointment obj : patients) {
             if (obj.getPatientname().equals(prescription.getPatientname())) {
                 patientID = obj.getPatientid();
                 break;
@@ -229,8 +235,8 @@ public class TherapistController {
 
     @GetMapping("/patientlistbydoctoremailanddate/{email}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<Appointments>> getPatientDetailsAndDate(@PathVariable String email) throws Exception {
-        List<Appointments> patients = appointmentBookingService.getAllPatients();
+    public ResponseEntity<List<Appointment>> getPatientDetailsAndDate(@PathVariable String email) throws Exception {
+        List<Appointment> patients = appointmentBookingService.getAllPatients();
         List<Therapist> history = doctorRegisterService.getDoctorListByEmail(email);
         String doctorname = "";
         for (Therapist obj : history) {
@@ -242,14 +248,14 @@ public class TherapistController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         Date date = new Date();
         String todayDate = formatter.format(date);
-        List<Appointments> appointmentsList = new ArrayList<>();
-        for (Appointments obj : patients) {
+        List<Appointment> appointmentsList = new ArrayList<>();
+        for (Appointment obj : patients) {
             if (obj.getDoctorname().equals(doctorname) && obj.getDate().equals(todayDate)) {
                 doctorname = obj.getDoctorname();
                 appointmentsList.add(obj);
                 break;
             }
         }
-        return new ResponseEntity<List<Appointments>>(appointmentsList, HttpStatus.OK);
+        return new ResponseEntity<List<Appointment>>(appointmentsList, HttpStatus.OK);
     }*/
 }

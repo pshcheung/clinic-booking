@@ -38,7 +38,7 @@ public class LoginController {
     @PostMapping("/authenticate")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<String> generateToken(@RequestBody AuthRequest authRequest) throws Exception {
-        try {
+/*        try {
             System.out.println(authRequest.getEmail());
             System.out.println(authRequest.getPassword());
             List<User> users = userRegisterService.getAllUsers();
@@ -51,39 +51,39 @@ public class LoginController {
             // authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(currentEmail, authRequest.getPassword()));
         } catch (Exception ex) {
             throw new Exception("Invalid Username/password");
-        }
+        }*/
         return new ResponseEntity<String>(jwtUtil.generateToken(authRequest.getEmail()), HttpStatus.OK);
     }
 
     @PostMapping("/loginuser")
     @CrossOrigin(origins = "http://localhost:4200")
     public User loginUser(@RequestBody User user) throws Exception {
-        String currEmail = user.getEmail();
-        String currPassword = null;
+/*        String currEmail = user.getEmail();
+        String currPassword = null;*/
 
         User userObj = null;
-        if (currEmail != null && currPassword != null) {
+/*        if (currEmail != null && currPassword != null) {
             userObj = userRegisterService.fetchUserByEmailAndPassword(currEmail, currPassword);
         }
         if (userObj == null) {
             throw new Exception("User does not exists!!! Please enter valid credentials...");
-        }
+        }*/
         return userObj;
     }
 
     @PostMapping("/logindoctor")
     @CrossOrigin(origins = "http://localhost:4200")
     public Therapist loginDoctor(@RequestBody Therapist therapist) throws Exception {
-        String currEmail = therapist.getEmail();
-        String currPassword = null;
+/*        String currEmail = therapist.getEmail();
+        String currPassword = null;*/
 
         Therapist therapistObj = null;
-        if (currEmail != null && currPassword != null) {
+/*        if (currEmail != null && currPassword != null) {
             therapistObj = doctorRegisterService.fetchDoctorByEmailAndPassword(currEmail, currPassword);
         }
         if (therapistObj == null) {
             throw new Exception("User does not exists!!! Please enter valid credentials...");
-        }
+        }*/
         return therapistObj;
     }
 

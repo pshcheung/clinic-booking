@@ -608,7 +608,7 @@ https://github.com/dariapopova13/ItisApp/blob/48d217395a7fd25ac33384fb71e9f3a051
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from
@@ -624,7 +624,7 @@ https://github.com/joelleeyueer/catlas2/blob/1509f3400d5668b1ddd402c65bfe11ba422
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -640,7 +640,7 @@ https://github.com/joelleeyueer/catlas2/blob/1509f3400d5668b1ddd402c65bfe11ba422
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -658,7 +658,7 @@ import { HttpClient
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -676,7 +676,7 @@ import { HttpClient } from '@angular/
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -694,7 +694,7 @@ import { HttpClient } from '@angular/common/http';
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -714,7 +714,7 @@ import { Router
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -734,7 +734,7 @@ import { Router } from '@angular/
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -756,7 +756,7 @@ import {
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -778,7 +778,7 @@ import { Observable
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -800,7 +800,7 @@ import { Observable } from 'rx
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -822,7 +822,7 @@ import { Observable } from 'rxjs';
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -846,7 +846,7 @@ import { tap
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -870,7 +870,7 @@ import { tap } from 'rx
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -894,7 +894,7 @@ import { tap } from 'rxjs/operators';
 
 ## License: unknown
 
-https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/services/auth.service.ts
+https://github.com/BAHOHCEHC/FULLSTACK_MEAN-stack/blob/47f55e37cf9c021ee038a2a722fb9f3c371e8e3a/fullstack/client/src/app/shared/serviceTypes/auth.service.ts
 
 ```
 { Injectable } from '@angular/core';
@@ -1039,7 +1039,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication
+import { AuthenticationService } from '../../serviceTypes/authentication
 ```
 
 ## License: unknown
@@ -1049,7 +1049,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication
+import { AuthenticationService } from '../../serviceTypes/authentication
 ```
 
 ## License: MIT
@@ -1059,7 +1059,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication
+import { AuthenticationService } from '../../serviceTypes/authentication
 ```
 
 ## License: unknown
@@ -1069,7 +1069,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication
+import { AuthenticationService } from '../../serviceTypes/authentication
 ```
 
 ## License: Apache-2.0
@@ -1079,7 +1079,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @
 ```
@@ -1091,7 +1091,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @
 ```
@@ -1103,7 +1103,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @
 ```
@@ -1115,7 +1115,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @
 ```
@@ -1127,7 +1127,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector
@@ -1140,7 +1140,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector
@@ -1153,7 +1153,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector
@@ -1166,7 +1166,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector
@@ -1179,7 +1179,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-
@@ -1192,7 +1192,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-
@@ -1205,7 +1205,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-
@@ -1218,7 +1218,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-
@@ -1231,7 +1231,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1245,7 +1245,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1259,7 +1259,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1273,7 +1273,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1287,7 +1287,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1301,7 +1301,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1315,7 +1315,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1329,7 +1329,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1343,7 +1343,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1357,7 +1357,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1371,7 +1371,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1385,7 +1385,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1399,7 +1399,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1414,7 +1414,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1429,7 +1429,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1444,7 +1444,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1459,7 +1459,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1474,7 +1474,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1489,7 +1489,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1504,7 +1504,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1519,7 +1519,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1535,7 +1535,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1551,7 +1551,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1567,7 +1567,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1583,7 +1583,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1600,7 +1600,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1617,7 +1617,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1634,7 +1634,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1651,7 +1651,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1669,7 +1669,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1687,7 +1687,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1705,7 +1705,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1723,7 +1723,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1742,7 +1742,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1761,7 +1761,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1780,7 +1780,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1799,7 +1799,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1819,7 +1819,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1839,7 +1839,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1859,7 +1859,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1879,7 +1879,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1900,7 +1900,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1921,7 +1921,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1942,7 +1942,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1963,7 +1963,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -1985,7 +1985,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2007,7 +2007,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2029,7 +2029,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2051,7 +2051,7 @@ https://github.com/IBM-Blockchain-Archive/fabric-boilerplate/blob/9ce52197f7a0d5
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2073,7 +2073,7 @@ https://github.com/SergeyDushkin/HelpDesk.Client/blob/81f5dc9acff2e0596ad34ee0ce
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2095,7 +2095,7 @@ https://github.com/ashishsahu1/Movie-Ticket-Usecase/blob/34690ad7bc93bee953cb981
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -2117,7 +2117,7 @@ https://github.com/detrett/AngularBevgobs/blob/f7d2b60172efd9ad9eee5c7ae94124aa0
 ```
 '@angular/core';
 import { Router } from '@angular/router';
-import { AuthenticationService } from '../../services/authentication.service';
+import { AuthenticationService } from '../../serviceTypes/authentication.service';
 
 @Component({
   selector: 'app-login',

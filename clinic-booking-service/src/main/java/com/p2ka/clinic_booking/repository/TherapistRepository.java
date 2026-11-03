@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface TherapistRepository extends MongoRepository<Therapist, ObjectId> {
     Optional<Therapist> findBySubject(String subject);
-    //    void saveAll(List<TimeSlot> timeSlots);
+    //    void saveAll(List<Timeslot> timeslots);
 
-//    List<TimeSlot> findByEmail(String email);
+//    List<Timeslot> findByEmail(String email);
 }

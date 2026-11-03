@@ -43,11 +43,11 @@ public class DoctorRegistrationService {
     }
 
     public List<Therapist> getDoctorListByEmail(String email) {
-        return doctorRegistrationRepo.findDoctorListByEmail(email);
+        return doctorRegistrationRepo.findDoctorListByEmailAddress(email);
     }
 
     public Therapist fetchDoctorByEmail(String email) {
-        return doctorRegistrationRepo.findByEmail(email);
+        return doctorRegistrationRepo.findByEmailAddress(email);
     }
 
     public Therapist fetchDoctorByDoctorname(String doctorname) {
@@ -61,7 +61,7 @@ public class DoctorRegistrationService {
     }
 
     public List<Therapist> fetchProfileByEmail(String email) {
-        return doctorRegistrationRepo.findProfileByEmail(email);
+        return doctorRegistrationRepo.findProfileByEmailAddress(email);
     }
 
 }

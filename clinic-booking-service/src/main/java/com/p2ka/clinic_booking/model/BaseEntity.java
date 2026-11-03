@@ -7,6 +7,10 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.annotation.LastModifiedDate;
+
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -16,4 +20,9 @@ import org.springframework.data.annotation.Id;
 public class BaseEntity {
     @Id
     private ObjectId id;
+    private LocalDateTime createdDateTime;
+    @LastModifiedDate
+    private LocalDateTime lastUpdatedDateTime;
+    @LastModifiedBy
+    private String lastUpdatedBy;
 }

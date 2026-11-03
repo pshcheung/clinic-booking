@@ -1,4 +1,4 @@
-services:
+serviceTypes:
   mysql:
     image: mysql:latest
     restart: always

@@ -1,7 +1,7 @@
 package com.p2ka.clinic_booking.controller;
 
 import com.p2ka.clinic_booking.model.*;
-import com.p2ka.clinic_booking.service.AppointmentBookingService;
+import com.p2ka.clinic_booking.service.AppointmentService;
 import com.p2ka.clinic_booking.service.PrescriptionService;
 import com.p2ka.clinic_booking.service.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +19,7 @@ public class UserController {
     private UserRegistrationService userRegisterService;
 
     @Autowired
-    private AppointmentBookingService appointmentBookingService;
+    private AppointmentService appointmentService;
 
     @Autowired
     private PrescriptionService prescriptionService;
@@ -40,25 +40,25 @@ public class UserController {
 
     @GetMapping("/patientlistbyemail/{email}")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<Appointments>> getPatientList(@PathVariable String email) throws Exception {
-//        List<Appointments> patients = appointmentBookingService.findPatientByEmail(email);
-        List<Appointments> patients = null;
-        return new ResponseEntity<List<Appointments>>(patients, HttpStatus.OK);
+    public ResponseEntity<List<Appointment>> getPatientList(@PathVariable String email) throws Exception {
+//        List<Appointment> patients = appointmentBookingService.findPatientByEmail(email);
+        List<Appointment> patients = null;
+        return new ResponseEntity<List<Appointment>>(patients, HttpStatus.OK);
     }
 
     @GetMapping("/patientlist")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<List<Appointments>> getPatients() throws Exception {
-//        List<Appointments> patients = appointmentBookingService.getAllPatients();
-        List<Appointments> patients = null;
-        return new ResponseEntity<List<Appointments>>(patients, HttpStatus.OK);
+    public ResponseEntity<List<Appointment>> getPatients() throws Exception {
+//        List<Appointment> patients = appointmentBookingService.getAllPatients();
+        List<Appointment> patients = null;
+        return new ResponseEntity<List<Appointment>>(patients, HttpStatus.OK);
     }
 
     @GetMapping("/gettotalpatients")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Integer>> getTotalPatients() throws Exception {
-//        List<Appointments> patients = appointmentBookingService.getAllPatients();
-        List<Appointments> patients = null;
+//        List<Appointment> patients = appointmentBookingService.getAllPatients();
+        List<Appointment> patients = null;
         List<Integer> al = new ArrayList<>();
         al.add(patients.size());
         return new ResponseEntity<List<Integer>>(al, HttpStatus.OK);
@@ -67,8 +67,8 @@ public class UserController {
     @GetMapping("/gettotalappointments")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<List<Integer>> getTotalAppointments() throws Exception {
-//        List<Appointments> patients = appointmentBookingService.getAllPatients();
-        List<Appointments> patients = null;
+//        List<Appointment> patients = appointmentBookingService.getAllPatients();
+        List<Appointment> patients = null;
         List<Integer> al = new ArrayList<>();
         al.add(patients.size());
         return new ResponseEntity<List<Integer>>(al, HttpStatus.OK);
@@ -99,8 +99,8 @@ public class UserController {
 
     @PostMapping("/bookNewAppointment")
     @CrossOrigin(origins = "http://localhost:4200")
-    public ResponseEntity<Appointments> addNewAppointment(@RequestBody Appointments appointment) {
-        if (appointment.getPatientname() == null || appointment.getPatientname().isBlank()
+    public ResponseEntity<Appointment> addNewAppointment(@RequestBody Appointment appointment) {
+/*        if (appointment.getPatientname() == null || appointment.getPatientname().isBlank()
                 || appointment.getDoctorname() == null || appointment.getDoctorname().isBlank()
                 || ((appointment.getDate() == null || appointment.getDate().isBlank())
                 && appointment.getStartDateTime() == null)) {
@@ -124,8 +124,8 @@ public class UserController {
                 || "false".equalsIgnoreCase(appointment.getAppointmentstatus())) {
             appointment.setAppointmentstatus("PENDING");
         }
-        Appointments saved = appointmentBookingService.addNewAppointment(appointment);
-        return new ResponseEntity<>(saved, HttpStatus.OK);
+        Appointment saved = appointmentService.addNewAppointment(appointment);*/
+        return new ResponseEntity<>((Appointment) null, HttpStatus.OK);
     }
 
     public String getPatientID() {

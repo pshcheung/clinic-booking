@@ -8,5 +8,6 @@ import org.springframework.validation.annotation.Validated;
 @ConfigurationProperties(prefix = "application")
 public record ApplicationConfig (
     @NotBlank String title,
-    @NotBlank String version
+    @NotBlank String version,
+    @NotBlank String organizationCode
 ){}

@@ -1,16 +1,16 @@
 package com.p2ka.clinic_booking.repository;
 
-import com.p2ka.clinic_booking.model.Appointments;
+import com.p2ka.clinic_booking.model.Appointment;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.List;
 
-public interface BookingRepository extends MongoRepository<Appointments, Integer> {
-    List<Appointments> findByEmail(String email);
+public interface BookingRepository extends MongoRepository<Appointment, Integer> {
+/*    List<Appointment> findByEmail(String email);
 
-    List<Appointments> findBySlot(String slot);
+    List<Appointment> findBySlot(String slot);
 
-    List<Appointments> findByDoctorname(String doctorname);
+    List<Appointment> findByDoctorname(String doctorname);*/
 
 /*    void updateAmstatus(String doctorname, String date);
 

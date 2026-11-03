@@ -29,7 +29,7 @@ public class UserRegistrationService implements UserDetailsService {
     }
 
     public User fetchUserByEmail(String email) {
-        return userRegistrationRepo.findByEmail(email);
+        return userRegistrationRepo.findByEmailAddress(email);
     }
 
     public User fetchUserByUsername(String username) {
@@ -43,12 +43,13 @@ public class UserRegistrationService implements UserDetailsService {
     }
 
     public List<User> fetchProfileByEmail(String email) {
-        return userRegistrationRepo.findProfileByEmail(email);
+        return userRegistrationRepo.findProfileByEmailAddress(email);
     }
 
     public UserDetails loadUserByEmail(String email) throws UsernameNotFoundException {
-        User user = userRegistrationRepo.findByEmail(email);
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), null, new ArrayList<>());
+/*        User user = userRegistrationRepo.findByEmail(email);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(), null, new ArrayList<>());*/
+        return null;
     }
 
     @Override
