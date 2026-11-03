@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {TimeslotStore} from '../../../stores/timeslot-store';
-import {TimeSlot} from '../../../models/time-slot';
+import {Timeslot} from '../../../models/timeslot';
 import {DatePipe} from '@angular/common';
 
 @Component({
@@ -13,7 +13,7 @@ import {DatePipe} from '@angular/common';
 })
 export class TherapistHome {
   protected readonly timeslotStore = inject(TimeslotStore);
-//  readonly timeslots: TimeSlot[] = [];
+//  readonly timeslots: Timeslot[] = [];
 /*  ngOnInit() {
     // Triggered automatically whenever any part of the store state changes
     watchState(this.timeslotStore, (state) => {

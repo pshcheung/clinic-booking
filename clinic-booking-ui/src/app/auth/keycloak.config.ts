@@ -12,7 +12,7 @@ import {environment} from '../../environments/environment';
 const apiBaseUrl = environment.apiURL.replace(/\/+$/, '');
 const escapedApiBaseUrl = apiBaseUrl.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 const apiCondition = createInterceptorCondition<IncludeBearerTokenCondition>({
-  urlPattern: new RegExp(`^${escapedApiBaseUrl}(?:/|$)`, 'i'),
+  urlPattern: new RegExp(`^${escapedApiBaseUrl}(?!/api/public(?:/|$))(?:/|$)`, 'i'),
 });
 
 export const provideKeycloakAngular = () =>

@@ -16,29 +16,29 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "timeslots")
-public class TimeSlot extends BaseEntity{
-    Therapist therapist;
+public class Timeslot extends BaseEntity{
     List<ServiceType> servicesToProvide;
     LocalDateTime startDateTime;
     LocalDateTime endDateTime;
-    TimeSlotType type;
-    TimeSlotStatus status;
+    TimeslotType type;
+    TimeslotStatus status;
+    Therapist therapist;
 
-    public enum TimeSlotType {
+    public enum TimeslotType {
         MIN_15_MINUTES("MIN_15"),
         MIN_30_MINUTES("MIN_30"),
         MIN_60_MINUTES("MIN_60");
 
-        TimeSlotType(String type) {
+        TimeslotType(String type) {
         }
     }
 
-    public enum TimeSlotStatus {
+    public enum TimeslotStatus {
         PROPOSED("PRP"),
         ACCEPTED("ACP"),
         REJECTED("RJT");
 
-        TimeSlotStatus(String type) {
+        TimeslotStatus(String type) {
         }
     }
 }

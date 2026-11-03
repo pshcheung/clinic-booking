@@ -14,20 +14,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(collection = "appointments")
-public class Appointments {
-    private int id;
-    private String patientid;
-    private String patientname;
-    private String email;
-    private String doctorname;
-    private String specialization;
-    private String date;
+public class Appointment extends BaseEntity {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
-    private String age;
-    private String gender;
-    private String problem;
-    private String slot;
-    private String appointmentstatus;
-    private String admissionstatus;
+    private Therapist assignedTherapist;
+    private String comments;
+    private AppointmentStatus status;
+
+    public enum AppointmentStatus {
+        REQUESTED("RQT"),
+        ACCEPTED("ACP"),
+        REJECTED("RJT"),
+        CANCELLED("CNL"),
+        UNATTENDED("UAT"),
+        COMPETED("CMP");
+
+        AppointmentStatus(String type) {
+        }
+    }
 }

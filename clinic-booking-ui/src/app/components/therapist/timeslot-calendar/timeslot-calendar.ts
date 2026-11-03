@@ -1,12 +1,14 @@
 import {DatePipe, NgClass} from '@angular/common';
-import {Component, OnInit, inject, signal} from '@angular/core';
+import {Component, OnInit, inject, signal, computed} from '@angular/core';
 import {form, FormField, FormRoot, required} from '@angular/forms/signals';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageService} from '../../../services/language.service';
 import {CdkTrapFocus} from '@angular/cdk/a11y';
-import {TimeSlot, TimeSlotStatus} from '../../../models/time-slot';
+import {Timeslot, TimeslotStatus} from '../../../models/timeslot';
+import {ServiceType} from '../../../models/service-type';
 import {Appointment} from '../../../models/appointment';
 import {TimeslotStore} from '../../../stores/timeslot-store';
+import {ApplicationDataStore} from '../../../stores/application-data.store';
 
 @Component({
   standalone: true,
@@ -17,6 +19,7 @@ import {TimeslotStore} from '../../../stores/timeslot-store';
 })
 export class TimeslotCalendar implements OnInit {
   protected readonly timeslotStore = inject(TimeslotStore);
+  private readonly applicationDataStore = inject(ApplicationDataStore);
   readonly languageService = inject(LanguageService);
 
   constructor() {
@@ -25,20 +28,30 @@ export class TimeslotCalendar implements OnInit {
   readonly slots = this.timeslotStore.timeslots;
   readonly appointments = this.timeslotStore.appointments;
   readonly month = signal(new Date(new Date().getFullYear(), new Date().getMonth(), 1));
-  readonly selectedSlot = signal<TimeSlot | null>(null);
+  readonly selectedSlot = signal<Timeslot | null>(null);
   readonly selectedAppointment = signal<Appointment | null>(null);
   readonly loading = this.timeslotStore.isLoading;
   readonly error = signal('');
   readonly saving = this.timeslotStore.isSaving;
   readonly editing = signal(false);
-  readonly editModel = signal({start: '', end: ''});
+  readonly editModel = signal<{start: string; end: string; servicesToProvide: ServiceType[]}>({start: '', end: '', servicesToProvide: []});
   readonly editForm = form(this.editModel, path => {
     required(path.start);
     required(path.end);
   }, {submission: {action: async () => { this.saveEdit(); }}});
+  readonly editableServices = computed<ServiceType[]>(() =>
+    this.applicationDataStore.applicationData()?.availableServices.map(service => ({
+      id: service.code,
+      code: service.code,
+      name: service.name,
+      description: service.description,
+      clientRateCode: service.clientRateCode,
+      therapistRateCode: service.therapistRateCode,
+    })) ?? [],
+  );
 
   ngOnInit(): void {
-    this.timeslotStore.loadCalendarData();
+    this.loadVisibleMonth();
   }
 
   get monthLabel(): string {
@@ -59,18 +72,33 @@ export class TimeslotCalendar implements OnInit {
   previousMonth(): void {
     const date = this.month();
     this.month.set(new Date(date.getFullYear(), date.getMonth() - 1, 1));
+    this.loadVisibleMonth();
   }
 
   nextMonth(): void {
     const date = this.month();
     this.month.set(new Date(date.getFullYear(), date.getMonth() + 1, 1));
+    this.loadVisibleMonth();
+  }
+
+  private loadVisibleMonth(): void {
+    const firstVisibleDay = this.calendarWeeks[0][0];
+    const lastVisibleDay = this.calendarWeeks[5][6];
+    this.timeslotStore.loadCalendarData(this.formatApiDate(firstVisibleDay), this.formatApiDate(lastVisibleDay));
+  }
+
+  private formatApiDate(date: Date): string {
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}${month}${day}`;
   }
 
   isCurrentMonth(day: Date): boolean {
     return day.getMonth() === this.month().getMonth();
   }
 
-  slotsFor(day: Date): TimeSlot[] {
+  slotsFor(day: Date): Timeslot[] {
     return this.slots().filter(slot => this.sameDay(new Date(slot.startDateTime), day))
       .sort((a, b) => new Date(a.startDateTime).getTime() - new Date(b.startDateTime).getTime());
   }
@@ -100,6 +128,19 @@ export class TimeslotCalendar implements OnInit {
     return appointment.slot || 'Time not specified';
   }
 
+  isCancelledAppointment(appointment: Appointment): boolean {
+    const status = String(appointment.status ?? appointment.appointmentstatus ?? '').trim().toUpperCase();
+    return status === 'CANCELLED' || status === 'CANCELED' || status === 'CNL';
+  }
+
+  appointmentClass(appointment: Appointment): string {
+    return this.isCancelledAppointment(appointment) ? 'appointment cancelled' : 'appointment';
+  }
+
+  appointmentLabel(appointment: Appointment): string {
+    return this.isCancelledAppointment(appointment) ? 'calendar.status.cancelled' : 'calendar.appointment';
+  }
+
   openAppointmentDetails(appointment: Appointment): void {
     this.selectedAppointment.set(appointment);
     this.selectedSlot.set(null);
@@ -109,7 +150,7 @@ export class TimeslotCalendar implements OnInit {
     this.selectedAppointment.set(null);
   }
 
-  openDetails(slot: TimeSlot): void {
+  openDetails(slot: Timeslot): void {
     this.selectedAppointment.set(null);
     this.selectedSlot.set(slot);
     this.editing.set(false);
@@ -123,12 +164,22 @@ export class TimeslotCalendar implements OnInit {
 
   beginEdit(): void {
     const slot = this.selectedSlot();
-    if (!slot || this.normalizeStatus(slot.status) !== TimeSlotStatus.PROPOSED) return;
+    if (!slot || this.normalizeStatus(slot.status) !== TimeslotStatus.PROPOSED) return;
     this.editModel.set({
       start: this.toLocalInput(new Date(slot.startDateTime)),
       end: this.toLocalInput(new Date(slot.endDateTime)),
+      servicesToProvide: (slot.servicesToProvide ?? []).map(service => ({...service})),
     });
     this.editing.set(true);
+  }
+
+  toggleEditService(service: ServiceType): void {
+    this.editModel.update(model => ({
+      ...model,
+      servicesToProvide: model.servicesToProvide.some(selected => selected.id === service.id)
+        ? model.servicesToProvide.filter(selected => selected.id !== service.id)
+        : [...model.servicesToProvide, {...service}],
+    }));
   }
 
   saveEdit(): void {
@@ -142,7 +193,12 @@ export class TimeslotCalendar implements OnInit {
       return;
     }
     this.error.set('');
-    this.timeslotStore.updateTimeslot({...slot, startDateTime, endDateTime}).subscribe({
+    this.timeslotStore.updateTimeslot({
+      ...slot,
+      startDateTime,
+      endDateTime,
+      servicesToProvide: this.editModel().servicesToProvide.map(service => ({...service, code: service.code ?? service.id})),
+    }).subscribe({
       next: updated => {
         this.selectedSlot.set(updated);
         this.editing.set(false);
@@ -153,35 +209,27 @@ export class TimeslotCalendar implements OnInit {
     });
   }
 
-  statusName(slot: TimeSlot): string {
+  statusName(slot: Timeslot): string {
     switch (this.normalizeStatus(slot.status)) {
-      case TimeSlotStatus.ACCEPTED: return 'calendar.status.approved';
-      case TimeSlotStatus.REJECTED: return 'calendar.status.denied';
+      case TimeslotStatus.ACCEPTED: return 'calendar.status.approved';
+      case TimeslotStatus.REJECTED: return 'calendar.status.denied';
       default: return 'calendar.status.pending';
     }
   }
 
-  statusClass(slot: TimeSlot): string {
+  statusClass(slot: Timeslot): string {
     return this.normalizeStatus(slot.status).toLowerCase();
   }
 
-  serviceNames(slot: TimeSlot): string {
-    const labels: Record<string, string> = this.languageService.currentLanguage() === 'fr'
-      ? {BUCCAL_MASSAGE: 'Massage buccal', LYMPHATIC_DRAINAGE: 'Drainage lymphatique', SPORTS_MASSAGE: 'Massage sportif', SPECIAL_MASSAGE: 'Massage spécialisé', THAI_MASSAGE: 'Massage thaïlandais'}
-      : {BUCCAL_MASSAGE: 'Buccal Massage', LYMPHATIC_DRAINAGE: 'Lymphatic Massage', SPORTS_MASSAGE: 'Sports Massage', SPECIAL_MASSAGE: 'Special Massage', THAI_MASSAGE: 'Thai Massage'};
-    return (slot.servicesToProvide ?? []).map(service => labels[service.code ?? service.id ?? ''] ?? service.name ?? service.id ?? 'Service').join(', ')
-      || (this.languageService.currentLanguage() === 'fr' ? 'Aucun soin indiqué' : 'No services listed');
-  }
-
-  durationMinutes(slot: TimeSlot): number {
+  durationMinutes(slot: Timeslot): number {
     return Math.round((new Date(slot.endDateTime).getTime() - new Date(slot.startDateTime).getTime()) / 60_000);
   }
 
-  private normalizeStatus(status: TimeSlotStatus | string | undefined): TimeSlotStatus {
+  private normalizeStatus(status: TimeslotStatus | string | undefined): TimeslotStatus {
     const value = String(status ?? '').toUpperCase();
-    if (value === 'ACCEPTED' || value === '1') return TimeSlotStatus.ACCEPTED;
-    if (value === 'REJECTED' || value === '2') return TimeSlotStatus.REJECTED;
-    return TimeSlotStatus.PROPOSED;
+    if (value === 'ACCEPTED' || value === '1') return TimeslotStatus.ACCEPTED;
+    if (value === 'REJECTED' || value === '2') return TimeslotStatus.REJECTED;
+    return TimeslotStatus.PROPOSED;
   }
 
   private sameDay(left: Date, right: Date): boolean {

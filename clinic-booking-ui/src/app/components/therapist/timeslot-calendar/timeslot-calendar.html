@@ -13,10 +13,17 @@
   </header>
 
   <div class="legend" role="group" [attr.aria-label]="'calendar.legend' | translate">
-    <span><i class="pending-dot"></i>{{ 'calendar.status.pending' | translate }}</span>
-    <span><i class="accepted-dot"></i>{{ 'calendar.status.approved' | translate }}</span>
-    <span><i class="rejected-dot"></i>{{ 'calendar.status.denied' | translate }}</span>
-    <span><i class="appointment-dot"></i>{{ 'calendar.appointment' | translate }}</span>
+    <div class="legend-group">
+      <strong>{{ 'calendar.legendAvailability' | translate }}</strong>
+      <span><i class="pending-dot"></i>{{ 'calendar.status.pending' | translate }}</span>
+      <span><i class="accepted-dot"></i>{{ 'calendar.status.approved' | translate }}</span>
+      <span><i class="rejected-dot"></i>{{ 'calendar.status.denied' | translate }}</span>
+    </div>
+    <div class="legend-group">
+      <strong>{{ 'calendar.legendAppointments' | translate }}</strong>
+      <span><i class="appointment-dot"></i>{{ 'calendar.appointment' | translate }}</span>
+      <span><i class="cancelled-dot"></i>{{ 'calendar.status.cancelled' | translate }}</span>
+    </div>
   </div>
 
   @if (error() || timeslotStore.error()) { <p class="notice error" role="alert">{{ (error() || timeslotStore.error()) | translate }}</p> }
@@ -39,9 +46,9 @@
                     </button>
                   }
                   @for (appointment of appointmentsFor(day); track appointment.id ?? appointment.patientid + appointment.date + appointment.slot) {
-                    <button type="button" class="slot-chip appointment" (click)="openAppointmentDetails(appointment)"
-                            [attr.aria-label]="('calendar.appointmentWith' | translate) + ' ' + (appointment.patientname || ('calendar.patient' | translate)) + ' · ' + (day | date:'fullDate':undefined:locale) + ' · ' + appointmentTime(appointment)">
-                      <span>{{ appointmentTime(appointment) }}</span><span>{{ 'calendar.appointment' | translate }}</span>
+                    <button type="button" class="slot-chip" [ngClass]="appointmentClass(appointment)" (click)="openAppointmentDetails(appointment)"
+                            [attr.aria-label]="(appointmentLabel(appointment) | translate) + ' ' + (appointment.patientname || ('calendar.patient' | translate)) + ' · ' + (day | date:'fullDate':undefined:locale) + ' · ' + appointmentTime(appointment)">
+                      <span>{{ appointmentTime(appointment) }}</span><span>{{ appointmentLabel(appointment) | translate }}</span>
                     </button>
                   }
                 </div>
@@ -53,7 +60,7 @@
     </div>
     @if (!slots().length && !appointments().length) { <p class="empty-state">{{ 'calendar.empty' | translate }}</p> }
   }
-</section>
+
 
 @if (selectedSlot(); as slot) {
   <div class="dialog-backdrop">
@@ -66,7 +73,14 @@
       @if (!editing()) {
         <dl>
           <div><dt>{{ 'calendar.time' | translate }}</dt><dd>{{ slot.startDateTime | date:'shortTime':undefined:locale }} – {{ slot.endDateTime | date:'shortTime':undefined:locale }}</dd></div>
-          <div><dt>{{ 'calendar.services' | translate }}</dt><dd>{{ serviceNames(slot) }}</dd></div>
+          <div><dt>{{ 'calendar.serviceTypes' | translate }}</dt>
+            <dd>
+              @for (service of slot.servicesToProvide; track service.id) {
+                <span class="service-type-chip">{{ 'serviceTypes.' + service | translate }}</span>
+              }
+            </dd>
+          </div>
+          <!--<div><dt>{{ 'calendar.serviceTypes' | translate }}</dt><dd>{{ serviceNames(slot) }}</dd></div>-->
           <div><dt>{{ 'calendar.duration' | translate }}</dt><dd>{{ 'calendar.minutes' | translate: {count: durationMinutes(slot)} }}</dd></div>
         </dl>
         @if (statusClass(slot) === 'proposed') {
@@ -76,6 +90,12 @@
         <form class="edit-fields" [formRoot]="editForm">
           <label>{{ 'calendar.startTime' | translate }} <input type="datetime-local" [formField]="editForm.start"></label>
           <label>{{ 'calendar.endTime' | translate }} <input type="datetime-local" [formField]="editForm.end"></label>
+          <fieldset class="edit-serviceTypes">
+            <legend>{{ 'calendar.serviceTypes' | translate }}</legend>
+            @for (service of editableServices(); track service.id) {
+              <button type="button" class="service-option" [class.selected]="editModel().servicesToProvide.some(selected => selected.id === service.id)" [attr.aria-pressed]="editModel().servicesToProvide.some(selected => selected.id === service.id)" (click)="toggleEditService(service)">{{ ('serviceTypes.' + service.id) | translate }}</button>
+            }
+          </fieldset>
           <div class="dialog-actions">
             <button type="button" class="secondary-button" (click)="editing.set(false)">{{ 'common.cancel' | translate }}</button>
             <button type="submit" class="primary-button" [disabled]="saving()">{{ (saving() ? 'common.saving' : 'common.saveChanges') | translate }}</button>
@@ -92,7 +112,7 @@
       <button type="button" class="close-button" [attr.aria-label]="'common.close' | translate" (click)="closeAppointmentDetails()">×</button>
       <p class="eyebrow">{{ 'calendar.appointment' | translate }}</p>
       <h2 id="appointment-title">{{ appointment.patientname || ('calendar.patientAppointment' | translate) }}</h2>
-      <span class="status-badge appointment">{{ 'calendar.appointment' | translate }}</span>
+      <span class="status-badge" [ngClass]="appointmentClass(appointment)">{{ appointmentLabel(appointment) | translate }}</span>
       <dl>
         <div><dt>{{ 'calendar.date' | translate }}</dt><dd>{{ appointmentDate(appointment) | date:'EEEE, MMMM d, y':undefined:locale }}</dd></div>
         <div><dt>{{ 'calendar.time' | translate }}</dt><dd>{{ appointmentTime(appointment) }}</dd></div>
@@ -101,7 +121,7 @@
         @if (appointment.gender) { <div><dt>{{ 'calendar.gender' | translate }}</dt><dd>{{ appointment.gender }}</dd></div> }
         @if (appointment.specialization) { <div><dt>{{ 'calendar.service' | translate }}</dt><dd>{{ appointment.specialization }}</dd></div> }
         @if (appointment.problem) { <div><dt>{{ 'calendar.reason' | translate }}</dt><dd>{{ appointment.problem }}</dd></div> }
-        @if (appointment.appointmentstatus) { <div><dt>{{ 'calendar.status.label' | translate }}</dt><dd>{{ appointment.appointmentstatus }}</dd></div> }
+        @if (appointment.status || appointment.appointmentstatus) { <div><dt>{{ 'calendar.status.label' | translate }}</dt><dd>{{ isCancelledAppointment(appointment) ? ('calendar.status.cancelled' | translate) : (appointment.status || appointment.appointmentstatus) }}</dd></div> }
       </dl>
     </section>
   </div>

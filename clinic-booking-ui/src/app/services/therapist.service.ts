@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Therapist} from '../models/therapist';
 import {Client} from '../models/client';
-import {TimeSlot} from '../models/time-slot';
+import {Timeslot} from '../models/timeslot';
 import {Appointment} from '../models/appointment';
 
 const NAV_URL = environment.apiURL;
@@ -28,12 +28,16 @@ export class TherapistService {
     return this._http.get<any>(`${NAV_URL}/therapist`);
   }
 
-  getTimeSlots(): Observable<TimeSlot[]> {
-    return this._http.get<TimeSlot[]>(`${NAV_URL}/api/v1/therapists/timeslots`);
+  getTimeslots(startDate?: string, endDate?: string): Observable<Timeslot[]> {
+    return this._http.get<Timeslot[]>(`${NAV_URL}/api/v1/therapists/timeslots`, {
+      params: startDate && endDate ? {sd: startDate, ed: endDate} : {},
+    });
   }
 
-  getAppointments(): Observable<Appointment[]> {
-    return this._http.get<Appointment[]>(`${NAV_URL}/api/v1/therapists/appointments`);
+  getAppointments(startDate?: string, endDate?: string): Observable<Appointment[]> {
+    return this._http.get<Appointment[]>(`${NAV_URL}/api/v1/therapists/appointments`, {
+      params: startDate && endDate ? {sd: startDate, ed: endDate} : {},
+    });
   }
 
   getAvailableSlotListForTherapist(): Observable<any> {
@@ -44,7 +48,7 @@ export class TherapistService {
     return this._http.get<any>(`${NAV_URL}/timeslot/service`);
   }
 
-  getRequestedTimeSlots(loggedUser: string): Observable<any> {
+  getRequestedTimeslots(loggedUser: string): Observable<any> {
     return this._http.get<any>(`${NAV_URL}/timeslot/` + loggedUser);
   }
 
@@ -86,26 +90,30 @@ export class TherapistService {
     return this._http.get<any>(`${NAV_URL}/rejectpatient/` + slot);
   }
 
-  public addBookingSlots(slot: TimeSlot): Observable<any> {
-    return this._http.post<any>(`${NAV_URL}/api/v1/therapists/timeslots`, [slot]);
+  public addBookingSlots(slot: Timeslot): Observable<any> {
+    // Keep the single-slot path aligned with the batch endpoint's DTO shape:
+    // one Timeslot object with service codes, rather than raw ServiceType objects.
+    return this.submitTimeslots([slot]);
   }
 
-  submitTimeslots(slots: TimeSlot[]): Observable<string> {
+  submitTimeslots(slots: Timeslot[]): Observable<string> {
     const payload = slots.map(slot => ({...slot,
       startDateTime: this.toLocalDateTime(slot.startDateTime),
       endDateTime: this.toLocalDateTime(slot.endDateTime),
-      servicesToProvide: slot.servicesToProvide.map(service => ({...service, code: service.code ?? service.id})),
+      servicesToProvide: slot.servicesToProvide.map(service => (service.code ?? service.id)),
     }));
     return this._http.post(`${NAV_URL}/api/v1/therapists/timeslots`, payload, {responseType: 'text'});
   }
 
-  updateTimeslot(slot: TimeSlot): Observable<TimeSlot> {
+  updateTimeslot(slot: Timeslot): Observable<Timeslot> {
     const payload = {...slot,
       startDateTime: this.toLocalDateTime(slot.startDateTime),
       endDateTime: this.toLocalDateTime(slot.endDateTime),
-      servicesToProvide: slot.servicesToProvide.map(service => ({...service, code: service.code ?? service.id})),
+      servicesToProvide: slot.servicesToProvide
+        .map(service => service.code ?? service.id)
+        .filter((code): code is string => !!code),
     };
-    return this._http.put<TimeSlot>(`${NAV_URL}/api/v1/therapists/timeslots/${slot.id}`, payload);
+    return this._http.put<Timeslot>(`${NAV_URL}/api/v1/therapists/timeslots/${slot.id}`, payload);
   }
 
   private toLocalDateTime(value: Date): string {

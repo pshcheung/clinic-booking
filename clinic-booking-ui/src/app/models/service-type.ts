@@ -3,7 +3,7 @@ export interface ServiceType {
   code?: string;
   name?: string;
   description?: string;
-  group?: string;
-  rate_group?: string;
-  minimum_duration?: string;
+  minimumDuration?: string;
+  clientRateCode?: string;
+  therapistRateCode?: string;
 }

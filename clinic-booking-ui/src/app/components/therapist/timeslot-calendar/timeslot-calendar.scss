@@ -9,7 +9,9 @@ h1 { margin: 0; color: #304238; font-size: clamp(1.8rem, 3vw, 2.5rem); }
 .month-controls h2 { min-width: 10rem; margin: 0; text-align: center; font-size: 1rem; }
 .month-controls button, .close-button { border: 1px solid #dce3d8; border-radius: .65rem; background: #fffefa; color: #3d5947; cursor: pointer; }
 .month-controls button { width: 2.5rem; height: 2.5rem; font-size: 1.5rem; }
-.legend { display: flex; gap: 1.1rem; margin: 0 0 .75rem; color: #4f5f53; font-size: .85rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 1rem 2rem; margin: 0 0 .9rem; color: #4f5f53; font-size: .85rem; }
+.legend-group { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; }
+.legend-group strong { color: #304238; font-size: .8rem; }
 .legend span { display: inline-flex; align-items: center; gap: .4rem; }
 .legend i { width: .65rem; height: .65rem; border-radius: 50%; }
 .pending-dot { background: #c28d39; }.accepted-dot { background: #538264; }.rejected-dot { background: #b9675d; }
@@ -26,6 +28,8 @@ h1 { margin: 0; color: #304238; font-size: clamp(1.8rem, 3vw, 2.5rem); }
 .slot-chip span:last-child { font-weight: 700; }
 .proposed { border-color: #9b691d; background: #fbf1de; color: #543b12; }.accepted { border-color: #3f704c; background: #e8f0e5; color: #264d32; }.rejected { border-color: #a34c42; background: #f8eae7; color: #71352f; }
 .appointment { border-color: #3e52bd; background: #edf0ff; color: #293783; }
+.cancelled-dot { background: #7b526f; }
+.appointment.cancelled { border-color: #7b526f; background: #f3eaf1; color: #59374f; }
 .empty-state { margin: 1rem 0; padding: 1.25rem; border: 1px dashed #aebdaf; border-radius: .75rem; color: #4e6052; text-align: center; }
 .dialog-backdrop { position: fixed; z-index: 1000; inset: 0; display: grid; place-items: center; padding: 1rem; background: #17273880; }
 .details-dialog { position: relative; width: min(100%, 31rem); padding: 1.5rem; border: 1px solid #e0e6dc; border-radius: 1rem; background: #fffefa; box-shadow: 0 20px 60px rgb(38 54 47 / 22%); }
@@ -33,8 +37,13 @@ h1 { margin: 0; color: #304238; font-size: clamp(1.8rem, 3vw, 2.5rem); }
 .close-button { position: absolute; top: .8rem; right: .8rem; width: 2.75rem; height: 2.75rem; font-size: 1.4rem; }
 .status-badge { display: inline-block; margin-bottom: .75rem; padding: .3rem .6rem; border-left: 3px solid; border-radius: .35rem; font-size: .78rem; font-weight: 700; }
 dl { margin: .25rem 0 1.2rem; }dl div { padding: .7rem 0; border-bottom: 1px solid #edf1f4; }dt { color: #42576b; font-size: .82rem; }dd { margin: .25rem 0 0; color: #26384a; }
+.service-type-chip { display: inline-block; margin: .2rem .35rem .1rem 0; padding: .45rem .7rem; border: 1px solid #cad6e0; border-radius: 999px; background: #e8f3f6; color: #145b70; font: inherit; font-size: .78rem; }
 .edit-fields { display: grid; gap: .9rem; margin: 1rem 0; }.edit-fields label { display: grid; gap: .35rem; color: #596c7e; font-size: .84rem; }
 .edit-fields input { min-width: 0; padding: .65rem; border: 1px solid #cad6e0; border-radius: .5rem; font: inherit; }
+.edit-services { display: flex; flex-wrap: wrap; gap: .5rem; padding: .8rem; border: 1px solid #dce4e9; border-radius: .6rem; }
+.edit-services legend { padding: 0 .25rem; color: #596c7e; font-size: .84rem; }
+.edit-services button { padding: .45rem .7rem; border: 1px solid #cad6e0; border-radius: 999px; background: #fff; color: #42576b; font: inherit; font-size: .78rem; cursor: pointer; }
+.edit-services button.selected { border-color: #176a83; background: #e8f3f6; color: #145b70; }
 .primary-button, .secondary-button { padding: .65rem .9rem; border: 0; border-radius: .5rem; cursor: pointer; font-weight: 700; }
 .primary-button { background: #176a83; color: white; }.primary-button:disabled { opacity: .6; cursor: wait; }
 .secondary-button { background: #edf2f6; color: #33495d; }.dialog-actions { display: flex; justify-content: flex-end; gap: .6rem; }
@@ -46,5 +55,6 @@ dl { margin: .25rem 0 1.2rem; }dl div { padding: .7rem 0; border-bottom: 1px sol
   .calendar th { padding: .55rem .1rem; font-size: .7rem; }
   .day-cell { height: 5.5rem; padding: .3rem; }
   .slot-chip { flex-direction: column; padding: .25rem; font-size: .62rem; }
-  .legend { flex-wrap: wrap; gap: .7rem; font-size: .78rem; }
+  .legend { gap: .7rem 1rem; font-size: .78rem; }
+  .legend-group { gap: .45rem .75rem; }
 }

@@ -1,10 +1,11 @@
-import {Component, inject, signal} from '@angular/core';
+import {Component, computed, inject, signal} from '@angular/core';
 import {applyEach, form, FormField, FormRoot, required} from '@angular/forms/signals';
 import {TranslatePipe} from '@ngx-translate/core';
 import {LanguageService} from '../../../services/language.service';
 import {ServiceType} from '../../../models/service-type';
-import {TimeSlot, TimeSlotStatus} from '../../../models/time-slot';
+import {Timeslot, TimeslotStatus} from '../../../models/timeslot';
 import {TimeslotStore} from '../../../stores/timeslot-store';
+import {ApplicationDataStore} from '../../../stores/application-data.store';
 
 type ScheduleMode = 'single' | 'weekly';
 interface TimePeriod { id: number; start: string; end: string; }
@@ -25,19 +26,23 @@ interface ScheduleFormModel {
 })
 export class AddTimeslot {
   protected readonly timeslotStore = inject(TimeslotStore);
+  private readonly applicationDataStore = inject(ApplicationDataStore);
   private readonly languageService = inject(LanguageService);
 
   constructor() {
     this.languageService.setPageTitle('availability.documentTitle');
   }
 
-  readonly serviceTypes: ServiceType[] = [
-    {id: 'BUCCAL_MASSAGE', name: 'Buccal Massage', description: 'Perform Buccal Massage', rate_group: '1', minimum_duration: '1'},
-    {id: 'LYMPHATIC_DRAINAGE', name: 'Lymphatic Massage', description: 'Perform Lymphatic Massage', rate_group: '1', minimum_duration: '1'},
-    {id: 'SPORTS_MASSAGE', name: 'Sports Massage', description: 'Perform Sports Massage', rate_group: '2', minimum_duration: '2'},
-    {id: 'SPECIAL_MASSAGE', name: 'Special Massage', description: 'Perform Special Massage', rate_group: '1', minimum_duration: '1'},
-    {id: 'THAI_MASSAGE', name: 'Thai Massage', description: 'Perform Thai Massage', rate_group: '1', minimum_duration: '1'},
-  ];
+  readonly serviceTypes = computed<ServiceType[]>(() =>
+    this.applicationDataStore.applicationData()?.availableServices.map(service => ({
+      id: service.code,
+      code: service.code,
+      name: service.name,
+      description: service.description,
+      clientRateCode: service.clientRateCode,
+      therapistRateCode: service.therapistRateCode,
+    })) ?? [],
+  );
   readonly weekdays: DayChoice[] = [
     {value: 0}, {value: 1}, {value: 2}, {value: 3}, {value: 4}, {value: 5}, {value: 6},
   ];
@@ -142,7 +147,7 @@ export class AddTimeslot {
     });
   }
 
-  private buildSlots(): TimeSlot[] | null {
+  private buildSlots(): Timeslot[] | null {
     const dates = this.scheduledDates();
     const model = this.scheduleModel();
     const weekdays = this.selectedWeekdays();
@@ -175,11 +180,11 @@ export class AddTimeslot {
     }
 
     return dates.flatMap(date => periods.map(period => {
-      const slot = new TimeSlot();
+      const slot = new Timeslot();
       slot.startDateTime = this.dateAtTime(date, period.start);
       slot.endDateTime = this.dateAtTime(date, period.end);
       slot.servicesToProvide = services.map(service => ({...service}));
-      slot.status = TimeSlotStatus.PROPOSED;
+      slot.status = TimeslotStatus.PROPOSED;
       return slot;
     }));
   }

@@ -65,10 +65,10 @@
       </section>
 
       <fieldset class="service-fieldset field-full" [attr.aria-describedby]="'service-description'">
-        <legend class="field-label">{{ 'availability.services' | translate }}</legend>
-        <div id="services" class="service-options">
-          @for (service of serviceTypes; track service.id) {
-            <button type="button" class="service-option" [class.selected]="selectedServices().some(selected => selected.id === service.id)" [attr.aria-pressed]="selectedServices().some(selected => selected.id === service.id)" (click)="toggleService(service)"><span class="service-check" aria-hidden="true">{{ selectedServices().some(selected => selected.id === service.id) ? '✓' : '+' }}</span>{{ ('services.' + service.id) | translate }}</button>
+        <legend class="field-label">{{ 'availability.serviceTypes' | translate }}</legend>
+        <div id="serviceTypes" class="service-options">
+          @for (service of serviceTypes(); track service.id) {
+            <button type="button" class="service-option" [class.selected]="selectedServices().some(selected => selected.id === service.id)" [attr.aria-pressed]="selectedServices().some(selected => selected.id === service.id)" (click)="toggleService(service)"><span class="service-check" aria-hidden="true">{{ selectedServices().some(selected => selected.id === service.id) ? '✓' : '+' }}</span>{{ ('serviceTypes.' + service.id) | translate }}</button>
           }
         </div>
         <small id="service-description">{{ 'availability.servicesHelp' | translate }}</small>

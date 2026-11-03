@@ -14,6 +14,7 @@ export class Appointment {
     slot : string = '';
     appointmentstatus : string = 'false';
     admissionstatus : string = 'false';
+    status?: string;
 
     constructor() {}
 }
