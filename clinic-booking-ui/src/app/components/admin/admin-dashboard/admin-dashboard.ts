@@ -1,5 +1,6 @@
-import {Component, signal} from '@angular/core';
+import {Component, inject, signal} from '@angular/core';
 import {TranslatePipe} from '@ngx-translate/core';
+import {LanguageService} from '../../../services/language.service';
 
 @Component({
   standalone: true,
@@ -12,4 +13,8 @@ import {TranslatePipe} from '@ngx-translate/core';
 })
 export class AdminDashboard {
   protected readonly title = signal<string>('admin.dashboard.title');
+
+  constructor() {
+    inject(LanguageService).setPageTitle('admin.dashboard.documentTitle');
+  }
 }

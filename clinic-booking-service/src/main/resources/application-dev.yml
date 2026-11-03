@@ -1,0 +1,86 @@
+application:
+  title: Clinic Booking
+  version: 0.0.1
+  file:
+    uploads:
+      photos-output-path: ./uploads
+  jwt:
+    audience: account
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
+        data:
+          mongodb:
+            core:
+              MongoTemplate=DEBUG:server: DEBUG
+              ReactiveMongoTemplate: DEBUG
+      mongodb:
+        driver:
+          protocol:
+            command: DEBUG
+
+server:
+  port: 8088
+
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/clinic-booking
+          #jwk-set-uri: 
+  mongodb:
+    host: localhost
+    port: 27017
+    username: admin
+    password: password
+    database: clinic-booking
+    authentication-database: admin
+#    uri: mongodb://admin:password@localhost:27017/?authSource=admin
+
+  #datasource:
+    #url: jdbc:postgresql://localhost:5432/book_social_network
+    #url: mongodb://admin:password@localhost:27017/book_social_network
+    #username: admin
+    #password: password
+    #driver-class-name: org.postgresql.Driver
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+  #jpa:
+    #hibernate:
+      #ddl-auto: create
+    #show-sql: false
+    #properties:
+      #hibernate:
+        #format_sql: true
+    #database: postgresql
+    #database: mysql
+    #database-platform: org.hibernate.dialect.PostgreSQLDialecta
+    #database-platform: org.hibernate.dialect.MySQL8Dialect
+
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: admin
+    password: password
+    #queue: mail-queue
+    #exchange: my-direct-exchange
+    #routingkey: routing-key
+
+  mail:
+    host: localhost
+    port: 1025
+    username: ali
+    password: ali
+    properties:
+      mail:
+        smtp:
+          trust: "*"
+        auth: true
+        starttls:
+          enabled: true
+        connectiontimeout: 5000
+        timeout: 3000
+        writetimeout: 5000

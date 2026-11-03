@@ -1,5 +1,7 @@
 package com.p2ka.clinic_booking.filter;
 
+import com.p2ka.clinic_booking.service.UserRegistrationService;
+import com.p2ka.clinic_booking.util.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -7,48 +9,47 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import com.p2ka.clinic_booking.service.UserRegistrationService;
-import com.p2ka.clinic_booking.util.JwtUtils;
-import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+/*
 @Component
-public class JwtFilter extends OncePerRequestFilter 
-{
-	    @Autowired
-	    private JwtUtils jwtUtil;
-	 
-	    @Autowired
-	    private UserRegistrationService service;
+public class JwtFilter extends OncePerRequestFilter {
+    @Autowired
+    private JwtUtils jwtUtil;
 
-	    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    @Autowired
+    private UserRegistrationService service;
 
-	        String authorizationHeader = httpServletRequest.getHeader("Authorization");
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
 
-	        String token = null;
-	        String userEmail = null;
+        String authorizationHeader = httpServletRequest.getHeader("Authorization");
 
-	        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-	            token = authorizationHeader.substring(7);
-	            userEmail = jwtUtil.extractUsername(token);
-	        }
+        String token = null;
+        String userEmail = null;
 
-	        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
+        if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
+            token = authorizationHeader.substring(7);
+            userEmail = jwtUtil.extractUsername(token);
+        }
 
-	            UserDetails userDetails = service.loadUserByEmail(userEmail);
+        if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
-	            if (jwtUtil.validateToken(token, userDetails)) {
+            UserDetails userDetails = service.loadUserByEmail(userEmail);
 
-	                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
-	                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-	                usernamePasswordAuthenticationToken
-	                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
-	                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
-	            }
-	        }
-	        filterChain.doFilter(httpServletRequest, httpServletResponse);
-	    }
-	}
+            if (jwtUtil.validateToken(token, userDetails)) {
+
+                UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                        new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+                usernamePasswordAuthenticationToken
+                        .setDetails(new WebAuthenticationDetailsSource().buildDetails(httpServletRequest));
+                SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
+            }
+        }
+        filterChain.doFilter(httpServletRequest, httpServletResponse);
+    }
+}*/

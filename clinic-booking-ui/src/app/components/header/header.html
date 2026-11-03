@@ -1,17 +1,27 @@
-<header>
-  <nav>
-    <h1>{{'header.title' | translate}}</h1>
-    <!-- Add navigation links here using routerLink -->
-    <div class="actions">
-      <a routerLink="/" class="action-item">Home</a>
-      <a routerLink="/admin" class="action-item" *kaHasRoles="['clinic_admin_role']; resource:'clinic-one-client' checkRealm:true">{{'admin.dashboard.title' | translate}}</a>
-      <a routerLink="/manager" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role']; resource:'clinic-one-client' checkRealm:true">{{'manager.dashboard.title' | translate}}</a>
-      <a routerLink="/therapist" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role']; resource:'clinic-one-client' checkRealm:true">{{'therapist.dashboard.title' | translate}}</a>
-      <a routerLink="/client" class="action-item" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role', 'clinic_client_role']; resource:'clinic-one-client' checkRealm:true">{{'client.dashboard.title' | translate}}</a>
+<header class="site-header">
+  <nav class="site-nav" [attr.aria-label]="'header.mainNavigation' | translate">
+    <a class="brand" routerLink="/" [attr.aria-label]="'header.home' | translate">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 40 40" fill="none"><path d="M20 33V19m0 7c-8 0-12-5-12-13 8 0 12 4 12 12Zm0-5c0-8 4-12 12-12 0 8-4 12-12 12Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 19c-1-6-4-9-9-11" stroke="currentColor" stroke-width="1.3" stroke-linecap="round"/></svg>
+      </span>
+      <span class="brand-copy"><strong>{{ 'header.brand' | translate }}</strong><small>{{ 'header.tagline' | translate }}</small></span>
+    </a>
+
+    <div class="nav-links">
+      <a routerLink="/" fragment="treatments" class="nav-link">{{ 'header.treatments' | translate }}</a>
+      <a routerLink="/" fragment="approach" class="nav-link">{{ 'header.approach' | translate }}</a>
+      <a routerLink="/" fragment="how-it-works" class="nav-link">{{ 'header.howItWorks' | translate }}</a>
+      <a routerLink="/admin" class="nav-link" *kaHasRoles="['clinic_admin_role']; resource:'clinic-one-client' checkRealm:true">{{ 'header.admin' | translate }}</a>
+      <a routerLink="/therapist" class="nav-link" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role']; resource:'clinic-one-client' checkRealm:true">{{ 'header.therapist' | translate }}</a>
+      <a routerLink="/client" class="nav-link" *kaHasRoles="['clinic_admin_role', 'clinic_manager_role', 'clinic_therapist_role', 'clinic_client_role']; resource:'clinic-one-client' checkRealm:true">{{ 'header.myCare' | translate }}</a>
+      <div class="language-switch" role="group" [attr.aria-label]="'header.language' | translate">
+        <button type="button" [class.active]="languageService.currentLanguage() === 'en'" [attr.aria-pressed]="languageService.currentLanguage() === 'en'" [attr.aria-label]="'header.english' | translate" (click)="setLanguage('en')">EN</button>
+        <button type="button" [class.active]="languageService.currentLanguage() === 'fr'" [attr.aria-pressed]="languageService.currentLanguage() === 'fr'" [attr.aria-label]="'header.french' | translate" (click)="setLanguage('fr')">FR</button>
+      </div>
       @if (!authenticated) {
-        <button class="action-item" (click)="login()">{{'header.menu.login-item' | translate}}</button>
+        <button class="nav-cta" type="button" (click)="login()">{{ 'header.signIn' | translate }} <span aria-hidden="true">↗</span></button>
       } @else {
-        <button class="action-item" (click)="logout()">{{'header.menu.logout-item' | translate}}</button>
+        <button class="nav-cta" type="button" (click)="logout()">{{ 'header.signOut' | translate }}</button>
       }
     </div>
   </nav>

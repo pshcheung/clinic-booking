@@ -47,3 +47,4 @@ testem.log
 Thumbs.db
 /docs/
 /clinic-booking-ui/.angular/
+/clinic-booking-ui/.tools/

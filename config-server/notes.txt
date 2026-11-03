@@ -1,0 +1,5 @@
+Create mvnw files:
+mvn wrapper:wrapper
+
+Build docker image:
+docker build -t config-server .

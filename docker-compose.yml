@@ -1,42 +1,181 @@
+networks:
+  app-network:
+    driver: bridge
+volumes:
+  mysql-data:
+  mongo-data:
+  rabbitmq_data:
+  rabbitmq_log:
+
 services:
-  mysql:
-    image: mysql:latest
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: supersecretpassword
-      MYSQL_DATABASE: keycloak
-      MYSQL_USER: keycloak
-      MYSQL_PASSWORD: secretpassword
-    volumes:
-      - mysql_data:/var/lib/mysql
+  eureka-server:
+    container_name: eureka-server
+    hostname: eureka-server
+    build:
+      context: ./eureka-server/target
+    image: eureka-server:latest
+    ports:
+      - "8761:8761"
     networks:
-      - keycloak-net
+      - app-network
+
+  config-server:
+    container_name: config-server
+    hostname: config-server
+    build:
+      context: ./config-server/target
+    image: config-server:latest
+    volumes:
+      - "./config/repo:/data/configs"
+    environment:
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka-server:8761/eureka/
+      SPRING_PROFILES_ACTIVE: native
+      SPRING_CLOUD_CONFIG_SERVER_NATIVE_SEARCH_LOCATIONS: file:/data/configs     
+    ports:
+      - "8888:8888"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+  mongodb:
+    container_name: mongodb
+    hostname: mongodb
+    image: mongodb/mongodb-community-server:8.0-ubi9-slim
+    ports:
+      - "27017:27017"
+    volumes:
+      - "mongo-data:/data/db"  # <-- Fixed space
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: clinic-booking
+    networks:
+      - app-network
+
+  zipkin:
+    container_name: zipkin
+    hostname: zipkin
+    image: openzipkin/zipkin:latest
+    ports:
+      - "9411:9411"
+    environment:
+      STORAGE_TYPE: mem
+    networks:
+      - app-network
+
+  mysql:
+    container_name: mysql
+    hostname: mysql
+    image: mysql:latest
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+      MYSQL_DATABASE: keycloak
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: password
+    volumes:
+      - "mysql-data:/var/lib/mysql" # <-- Fixed space
+    restart: always
+    networks:
+      - app-network
 
   keycloak:
-    image: keycloak/keycloak:26.4
-    restart: always
-    environment:
-      KC_DB: mysql
-      KC_DB_URL: jdbc:mysql://mysql:3306/keycloak
-      KC_DB_USERNAME: keycloak
-      KC_DB_PASSWORD: secretpassword
-      KC_HOSTNAME: localhost
-      KC_HTTP_PORT: 8080
-     # KC_PROXY: passthrough
-      KC_BOOTSTRAP_ADMIN_USERNAME: admin
-      KC_BOOTSTRAP_ADMIN_PASSWORD: adminpassword
+    container_name: keycloak
+    hostname: keycloak
+    image: quay.io/keycloak/keycloak:26.7
     ports:
       - "8080:8080"
-    command: start-dev --features organization
-    # command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: password
+    volumes:
+      - "./configs/keycloak:/opt/keycloak/data/import:ro"
+    entrypoint:
+      ["/opt/keycloak/bin/kc.sh", "start-dev", "--import-realm", "--features=organization"]
+    networks:
+      - app-network
     depends_on:
       - mysql
+
+  mail-dev:
+    container_name: mail-dev
+    hostname: mail-dev
+    image: maildev/maildev:latest
+    ports:
+      - "1080:1080"
+      - "1025:1025"
     networks:
-      - keycloak-net
+      - app-network
+    depends_on:
+      - eureka-server
 
-volumes:
-  mysql_data:
+  rabbitmq:
+    image: rabbitmq:4-management
+    container_name: rabbitmq
+    restart: unless-stopped
+    ports:
+      - "5672:5672"   # AMQP protocol port
+      - "15672:15672" # Management UI port
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: password
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+      - rabbitmq_log:/var/log/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "check_port_connectivity"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
 
-networks:
-  keycloak-net:
-    driver: bridge
+#  api-gateway:
+#    image: your-api-gateway-image
+#    container_name: api-gateway
+#    ports:
+#      - "8082:8082"
+#    depends_on:
+#      - config-server
+#      - mongodb
+#    environment:
+#      - SPRING_CONFIG_IMPORT=configserver:http://config-server:8888
+#      - SPRING_DATA_MONGODB_URI=mongodb://mongodb:27017/yourdb
+#      - MANAGEMENT_ZIPKIN_TRACING_ENDPOINT=http://zipkin:9411/api/v2/spans
+#    networks:
+#      - app-network
+
+#  service:
+#    container_name: service
+#    hostname: service
+#    build:
+#      context: ./service
+#      dockerfile: ./Dockerfile.spring
+#    ports:
+#      - 9090:9090
+#    networks:
+#      - app-network
+#    restart: always
+#    depends_on:
+#      - eureka-server
+#      - config-server 
+#      - zipkin
+
+#  ui:
+#    container_name: ui
+#    hostname: ui
+#    build:
+#      context: ./ui
+#      dockerfile: ./Dockerfile.angular
+#    ports:
+#      - 80:80
+#    networks:
+#      - app-network
+#    depends_on:
+#      - eureka-server
+#      - config-server 
+#      - service

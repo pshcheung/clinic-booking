@@ -1,36 +1,37 @@
-import {provideHttpClient, withInterceptors} from '@angular/common/http';
+import {HttpClient, provideHttpClient, withInterceptors} from '@angular/common/http';
 import {
   ApplicationConfig,
-  importProvidersFrom,
+  inject,
   provideBrowserGlobalErrorListeners,
+  provideAppInitializer,
 //  provideZonelessChangeDetection
 } from '@angular/core';
 import {provideRouter, withComponentInputBinding, withInMemoryScrolling} from '@angular/router';
 import {provideTranslateService} from '@ngx-translate/core';
 import {provideTranslateHttpLoader} from '@ngx-translate/http-loader';
+import {firstValueFrom} from 'rxjs';
 
-import { provideOAuthClient } from 'angular-oauth2-oidc';
-import {INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG, includeBearerTokenInterceptor} from 'keycloak-angular';
+import {includeBearerTokenInterceptor} from 'keycloak-angular';
 
 import { routes } from './app.routes';
 import {provideKeycloakAngular} from './auth/keycloak.config';
+import {environment} from '../environments/environment';
+import {ApplicationData} from './models/application-data';
+import {ApplicationDataStore} from './stores/application-data.store';
 
 export const appConfig: ApplicationConfig = {
   providers: [
 //    provideZonelessChangeDetection(),
     provideBrowserGlobalErrorListeners(),
     provideKeycloakAngular(),
-    provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),  // Add the configured interceptor
-/*    {
-      provide: INCLUDE_BEARER_TOKEN_INTERCEPTOR_CONFIG,
-      useValue: [
-        {
-          urlPattern: /^http:\/\/localhost\/.*$/,
-          httpMethods: ['GET', 'POST', 'PUT'] // Token added only for GET and POST
-        }
-      ]
-    },
-    provideOAuthClient(),*/
+    provideAppInitializer(() => {
+      const http = inject(HttpClient);
+      const applicationDataStore = inject(ApplicationDataStore);
+      return firstValueFrom(
+        http.get<ApplicationData>(`${environment.apiURL}/api/public/application-data`),
+      ).then(applicationData => applicationDataStore.setApplicationData(applicationData));
+    }),
+    provideHttpClient(withInterceptors([includeBearerTokenInterceptor])),
     provideRouter(
       routes,
       withInMemoryScrolling({
