@@ -1,17 +1,24 @@
 package com.p2ka.clinic_booking.repository;
 
-import com.p2ka.clinic_booking.model.Appointments;
+import com.p2ka.clinic_booking.model.Appointment;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import java.util.List;
+import java.time.LocalDateTime;
 
-public interface AppointmentsRepository extends MongoRepository<Appointments, Integer> {
-    List<Appointments> findByEmail(String email);
+public interface AppointmentsRepository extends MongoRepository<Appointment, Integer> {
+//    List<Appointment> findByEmailAddress(String email);
 
-    List<Appointments> findBySlot(String slot);
+//    List<Appointment> findBySlot(String slot);
 
-    List<Appointments> findByDoctorname(String doctorname);
-    List<Appointments> findByDoctornameIn(List<String> doctorNames);
+/*    List<Appointment> findByDoctorname(String doctorname);
+    List<Appointment> findByDoctornameIn(List<String> doctorNames);*/
+
+    List<Appointment> findByAssignedTherapist(String subject);
+    @Query("{ 'assignedTherapist.subject': ?0, 'startDateTime': { '$gte': ?1, '$lt': ?2 } }")
+    List<Appointment> findInPeriodForAssignedTherapist(
+            String subject, LocalDateTime start, LocalDateTime endExclusive);
 
 /*    void updateAmstatus(String doctorname, String date);
 

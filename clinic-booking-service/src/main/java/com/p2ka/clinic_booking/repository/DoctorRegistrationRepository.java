@@ -6,15 +6,15 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.List;
 
 public interface DoctorRegistrationRepository extends MongoRepository<Therapist, String> {
-    Therapist findByEmail(String email);
+    Therapist findByEmailAddress(String email);
 
-    List<Therapist> findDoctorListByEmail(String email);
+    List<Therapist> findDoctorListByEmailAddress(String email);
 
 //    Therapist findByDoctorname(String doctorname);
 //
 //    Therapist findByEmailAndPassword(String email, String password);
 
-    List<Therapist> findProfileByEmail(String email);
+    List<Therapist> findProfileByEmailAddress(String email);
 
 /*    void updateStatus(String email);
 

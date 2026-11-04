@@ -12,13 +12,12 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @SuperBuilder
 @AllArgsConstructor
 @NoArgsConstructor
-@Document(collection = "users")
-public class User {
+public class User extends BaseEntity {
     private String subject;  // unique id from the issuer.
-    private String email;
+    private String emailAddress;
     private String firstName;
     private String lastName;
-    private String mobile;
+    private String contactPhoneNumber;
     private String gender;
     private String age;
     private String addressLine1;

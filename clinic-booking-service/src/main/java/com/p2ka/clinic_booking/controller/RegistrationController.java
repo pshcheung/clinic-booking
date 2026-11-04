@@ -23,14 +23,14 @@ public class RegistrationController {
     @PostMapping("/registeruser")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> registerUser(@RequestBody User user) {
-        String currEmail = user.getEmail();
+        /*String currEmail = user.getEmail();
         if (currEmail != null && !currEmail.trim().isEmpty()) {
             User existing = userRegisterService.fetchUserByEmail(currEmail);
             if (existing != null) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("User with email " + currEmail + " already exists");
             }
-        }
+        }*/
         User saved = userRegisterService.saveUser(user);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }
@@ -38,14 +38,14 @@ public class RegistrationController {
     @PostMapping("/registerdoctor")
     @CrossOrigin(origins = "http://localhost:4200")
     public ResponseEntity<?> registerDoctor(@RequestBody Therapist therapist) {
-        String currEmail = therapist.getEmail();
+/*        String currEmail = therapist.getEmail();
         if (currEmail != null && !currEmail.trim().isEmpty()) {
             Therapist existing = doctorRegisterService.fetchDoctorByEmail(currEmail);
             if (existing != null) {
                 return ResponseEntity.status(HttpStatus.CONFLICT)
                         .body("Therapist with email " + currEmail + " already exists");
             }
-        }
+        }*/
         Therapist saved = doctorRegisterService.saveDoctor(therapist);
         return ResponseEntity.status(HttpStatus.CREATED).body(saved);
     }

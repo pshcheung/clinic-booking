@@ -17,6 +17,9 @@ import java.util.List;
 @Document(collection = "therapists")
 public class Therapist extends User {
     private int yearsOfExperience;
+    private String description;
+    private byte[] photo;
     private List<ServiceType> specialization;
-    private List<TimeSlot> timeSlots;
+    private List<Timeslot> timeslots;
+    private List<Appointment> appointments;
 }

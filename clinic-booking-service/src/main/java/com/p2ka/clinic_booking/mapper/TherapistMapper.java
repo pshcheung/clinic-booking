@@ -9,10 +9,29 @@ import org.springframework.security.oauth2.jwt.Jwt;
 @Mapper(componentModel = MappingConstants.ComponentModel.SPRING)
 public interface TherapistMapper {
     // Map JWT to Therapist
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "subject", expression = "java(getSubject(jwtToken))")
-    @Mapping(target = "email", expression = "java(getEmail(jwtToken))")
+    @Mapping(target = "emailAddress", expression = "java(getEmail(jwtToken))")
     @Mapping(target = "firstName", expression = "java(getGivenName(jwtToken))")
     @Mapping(target = "lastName", expression = "java(getFamilyName(jwtToken))")
+    @Mapping(target = "contactPhoneNumber", ignore = true)
+    @Mapping(target = "gender", ignore = true)
+    @Mapping(target = "age", ignore = true)
+    @Mapping(target = "addressLine1", ignore = true)
+    @Mapping(target = "addressLine2", ignore = true)
+    @Mapping(target = "city", ignore = true)
+    @Mapping(target = "province", ignore = true)
+    @Mapping(target = "yearsOfExperience", ignore = true)
+    @Mapping(target = "description", ignore = true)
+    @Mapping(target = "photo", ignore = true)
+    @Mapping(target = "specialization", ignore = true)
+    @Mapping(target = "timeslots", ignore = true)
+    @Mapping(target = "appointments", ignore = true)
+    @Mapping(target = "status", ignore = true)
+    @Mapping(target = "createdDateTime", ignore = true)
+    @Mapping(target = "lastUpdatedDateTime", ignore = true)
+    @Mapping(target = "lastUpdatedBy", ignore = true)
+
     Therapist jwtToTherapist(Jwt jwtToken);
 
     default String getSubject(Jwt jwtToken) {
